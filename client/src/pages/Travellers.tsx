@@ -1,3 +1,3 @@
 export default function Travellers() {
-  return <div>Travellers</div>;
+  return <div>Traveller List</div>;
 }

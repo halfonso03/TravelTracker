@@ -1,11 +1,13 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import App from '../../App';
-import DashBoard from '../../features/Dashboard/Dashboard';
-import TripList from '../../features/Trips/TripList';
+import DashBoard from '../../pages/Dashboard';
+import TripList from '../../pages/TripList';
 import TripForm from '../../features/Trips/TripForm';
 import NotFound from '../../features/errors/NotFound';
 import ServerError from '../../features/errors/ServerError';
-import Travellers from '../../features/Traveler/Travellers';
+import Travellers from '../../pages/Travellers';
+import Calendar from '../../pages/Calendar';
+import Reports from '../../pages/Reports';
 
 export const router = createBrowserRouter([
   {
@@ -19,8 +21,10 @@ export const router = createBrowserRouter([
         children: [{ path: ':id', element: <TripForm></TripForm> }],
       },
       { path: '/travellers', element: <Travellers /> },
-      { path: 'not-found', element: <NotFound /> },
-      { path: 'server-error', element: <ServerError /> },
+      { path: '/calendar', element: <Calendar /> },
+      { path: '/reports', element: <Reports /> },
+      { path: '/not-found', element: <NotFound /> },
+      { path: '/server-error', element: <ServerError /> },
 
       {
         path: '*',

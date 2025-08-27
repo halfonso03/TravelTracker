@@ -11,7 +11,13 @@ public class Trip
     public DateTime ToDate { get; set; }
     public string TravellerName { get; set; } = null!;
     public required int StatusId { get; set; }
-    public DateTime? ApprovedDate { get; set; }
     public Status? Status { get; set; }
     public required string Description { get; set; }
+    public required string Location { get; set; }
+
+    public DateTime? ApprovedDate { get; set; }
+    public DateTime? SubmittedDate { get; set; }
+    public DateTime? ReimbursementSentDate { get; set; }
+    public DateTime? ReimbursementPaidDate { get; set; }
+
 }

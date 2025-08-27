@@ -15,16 +15,18 @@ export const GlobalStyles = createGlobalStyle`:root {
   }
   
   html {
-    /* font-size: 62.5%; */
+    font-size: 62.5%;
   }
   
   body {
-    font-family: "Poppins", sans-serif;
-    background-color: var(--color-grey-800);
+    font-family:  "Segoe UI Symbol", "Noto Color Emoji";
+
+    background-color: var(--color-gray-900);
     /* transition: color 0.3s, background-color 0.3s; */
     min-height: 100vh;
     line-height: 1.5;
-    font-size: 1.2rem;
+    font-size: 1.6rem;
+
   }
   
   input,
@@ -61,6 +63,10 @@ export const GlobalStyles = createGlobalStyle`:root {
   button:has(svg) {
     line-height: 0;
   }
+
+  a:has(svg) svg  {
+    opacity: .7;
+  }
   
   a {
     color: inherit;
@@ -91,23 +97,23 @@ export const GlobalStyles = createGlobalStyle`:root {
   
 
   .menu-item {
+    font-size: .5rem;
     background-color: var(--color-grey-800);
     color: var(--color-grey-300);
     border-radius: var(--border-radius-sm);
   }
 
-  .menu-item:hover {
+ .menu-item:hover {
     background-color: var(--color-grey-900);
     transition: background-color 0.5s ease-out .05s ;
   }
-
-  .menu-item-active{
+  .menu-item-active {
     background-color: var(--color-grey-900);
-  }
+  } 
 
- div.menu-item:has(a.menu-item-active) {
+ /* div.menu-item:has(a.menu-item-active) {
   background-color: var(--color-grey-900);
- }
+ } */
   
     /* &.light-mode { */
       --color-brand-500: #6366f1;

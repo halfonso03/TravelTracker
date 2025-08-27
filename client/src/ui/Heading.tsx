@@ -6,6 +6,7 @@ const Heading = styled.h1`
     css`
       font-size: 4rem;
       font-weight: 600;
+      margin-bottom: 0.5rem;
     `}
 
   ${(props) =>
@@ -20,6 +21,7 @@ const Heading = styled.h1`
     css`
       font-size: 2rem;
       font-weight: 400;
+      margin-bottom: 0.5rem;
     `}
     
     ${(props) =>
@@ -27,6 +29,7 @@ const Heading = styled.h1`
     css`
       font-size: 1.5rem;
       font-weight: 300;
+      margin-bottom: 0.5rem;
     `}
 
      ${(props) =>

@@ -11,8 +11,13 @@ public class TripDto
     public DateTime ToDate { get; set; }
     public required string TravellerName { get; set; }
     public required int StatusId { get; set; }
-    public DateTime? ApprovedDate { get; set; }
     public required string Status { get; set; }
     public required string Description { get; set; }
+    public required string Location { get; set; }
+
+    public DateTime? ApprovedDate { get; set; }
+    public DateTime? SubmittedDate { get; set; }
+    public DateTime? ReimbursementSentDate { get; set; }
+    public DateTime? ReimbursementPaidDate { get; set; }
 
 }

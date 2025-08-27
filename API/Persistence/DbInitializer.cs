@@ -30,7 +30,8 @@ public class DbInitializer
                     ToDate = DateTime.Today.AddDays(15),
                     StatusId = 1,
                     TravellerName = "Bob",
-                    Description = "A trip Bob went on"
+                    Description = "A trip Bob went on",
+                    Location = "Denver, CO"
                 },
 
                 new()
@@ -39,7 +40,8 @@ public class DbInitializer
                     ToDate = DateTime.Today.AddDays(-10),
                     StatusId = 2,
                     TravellerName = "Tom",
-                    Description = "A trip Tom went on"
+                    Description = "A trip Tom went on",
+                    Location = "Denver, CO"
                 }
             };
 

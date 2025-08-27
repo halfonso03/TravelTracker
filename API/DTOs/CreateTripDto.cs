@@ -21,5 +21,10 @@ public class CreateTripDto
 
     [Required]
     public required string Description { get; set; }
+
+    [Required]
+    public required string Location { get; set; }
+
+
 }
 
