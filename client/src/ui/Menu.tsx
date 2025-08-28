@@ -6,7 +6,7 @@ import { BsFileExcel } from 'react-icons/bs';
 
 const StyledMenu = styled.div`
   flex: 1;
-  background-color: var(--color-grey-800);
+  background-color: var(--color-grey-1000);
   min-height: 100vh;
   padding: 1rem;
 `;
@@ -17,10 +17,10 @@ const StyledMenuItem = styled.div`
 
 const StyledMenuText = styled.span`
   font-size: 1rem;
-  color: var(--color-grey-300);
+  color: var(--color-grey-100);
   opacity: 1;
   font-weight: 500;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
 `;
 
 const StyledNavLink = styled(NavLink)`
@@ -29,7 +29,7 @@ const StyledNavLink = styled(NavLink)`
   &:visited {
     align-items: center;
     gap: 0.7rem;
-    color: var(--color-grey-100);
+    color: var(--color-grey-50);
     font-weight: 500;
     padding: 1rem 2.1rem;
     transition: all 0.3s;

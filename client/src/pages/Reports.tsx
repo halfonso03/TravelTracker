@@ -1,3 +1,5 @@
+import Header from '../features/Layout/Header';
+
 export default function Reports() {
-  return <div>Reports</div>;
+  return <Header>Reports</Header>;
 }

@@ -17,9 +17,7 @@ public class TravelController(AppDbContext context, IMapper mapper) : BaseApiCon
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)
     {
-        var trip = await context.Trips
-                                .Include(x => x.Status)
-                                .SingleOrDefaultAsync(x => x.Id == id);
+        var trip = await GetTrip(id);
 
         if (trip is null)
         {
@@ -27,7 +25,6 @@ public class TravelController(AppDbContext context, IMapper mapper) : BaseApiCon
         }
 
         return Ok(mapper.Map<TripDto>(trip));
-
     }
 
     [HttpGet("list")]
@@ -68,7 +65,7 @@ public class TravelController(AppDbContext context, IMapper mapper) : BaseApiCon
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(EditTripDto editedTrip, int id)
     {
-        var tripFromDb = await context.Trips.SingleOrDefaultAsync(x => x.Id == id);
+        var tripFromDb = await GetTrip(id);
 
         if (tripFromDb is null)
         {
@@ -90,6 +87,42 @@ public class TravelController(AppDbContext context, IMapper mapper) : BaseApiCon
 
         return Ok();
     }
+
+    [HttpPost("{id}/open")]
+    public async Task<IActionResult> Open(int id)
+    {
+        var trip = await GetTrip(id);
+
+        if (trip != null)
+        {
+            trip.StatusId = 1;
+            await context.SaveChangesAsync();
+        }
+
+        return Ok();
+    }
+
+
+    [HttpPost("{id}/close")]
+    public async Task<IActionResult> Close(int id)
+    {
+        var trip = await GetTrip(id);
+
+        if (trip != null)
+        {
+            trip.StatusId = 2;
+            await context.SaveChangesAsync();
+        }
+
+        return Ok();
+    }
+
+    private async Task<Trip?> GetTrip(int id)
+    {
+        return await context.Trips.FirstOrDefaultAsync(x => x.Id == id);
+    }
+
+
 }
 
 

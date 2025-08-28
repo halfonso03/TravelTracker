@@ -7,13 +7,36 @@ export const GlobalStyles = createGlobalStyle`:root {
   *::before,
   *::after {
     box-sizing: border-box;
-    padding: 0;
-    margin: 0;
+
+    /* padding: 0;
+    margin: 0; */
   
     /* Creating animations for dark mode */
     /* transition: background-color 0.3s, border 0.3s; */
   }
-  
+
+
+--fc-border-color: var(--color-grey-700);
+.fc-toolbar-title {
+  color: var(--color-grey-300);
+  font-size: 2rem;
+}
+
+.fc-button {
+  width: 75px; /* Adjust as needed */
+  height: 50px; /* Adjust as needed */
+  padding: 5px 10px; /* Adjust padding for text/icon spacing */
+  font-size: 1rem; /* Adjust font size of the button text */
+}
+
+.fc-today-button {
+  width: 75px; /* Adjust as needed */
+  height: 50px; /* Adjust as needed */
+  padding: 5px 10px; /* Adjust padding for text/icon spacing */
+  font-size: 1.2rem; /* Adjust font size of the button text */
+  color:var(--color-grey-100)
+}
+
   html {
     font-size: 62.5%;
   }
@@ -45,10 +68,18 @@ export const GlobalStyles = createGlobalStyle`:root {
     cursor: not-allowed;
   }
   
+  input,
+  textarea,
+  select {
+    background-color:var(--color-grey-900)
+  }
+
   select:disabled,
+  textarea:disabled,
   input:disabled {
-    background-color: var(--color-grey-200);
-    color: var(--color-grey-500);
+    background-color: var(--color-grey-800);
+    color: var(--color-grey-100);
+    border:0
   }
   
   input:focus,
@@ -58,6 +89,7 @@ export const GlobalStyles = createGlobalStyle`:root {
     outline: 2px solid var(--color-brand-600);
     outline-offset: -1px;
   }
+
   
   /* Parent selector, finally 😃 */
   button:has(svg) {
@@ -98,8 +130,7 @@ export const GlobalStyles = createGlobalStyle`:root {
 
   .menu-item {
     font-size: .5rem;
-    background-color: var(--color-grey-800);
-    color: var(--color-grey-300);
+    background-color: var(--color-grey-1000);
     border-radius: var(--border-radius-sm);
   }
 
@@ -131,6 +162,7 @@ export const GlobalStyles = createGlobalStyle`:root {
     --color-grey-700: #374151;
     --color-grey-800: #1f2937;
     --color-grey-900: #111827;
+    --color-grey-1000: #18212f;
   
     --color-blue-100: #e0f2fe;
     --color-blue-700: #0369a1;
@@ -258,4 +290,51 @@ export const GlobalStyles = createGlobalStyle`:root {
   --image-grayscale: 10%;
   --image-opacity: 90%;
   */
+
+  .react-datepicker {
+  border: 1px solid var(--color-grey-700);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: var(--color-grey-900);
+  color:var(--color-grey-100) !important
+  }
+/* .react-datepicker::after {
+  background-color: var(--color-grey-900);
+} */
+
+.react-datepicker__triangle {
+  fill: var(--color-grey-900) !important;
+  background-color: transparent !important; 
+  color:var(--color-grey-900) !important; 
+}
+
+.react-datepicker__header {
+  background-color: var(--color-grey-900);
+  border-bottom: 1px solid var(--color-grey-700);
+}
+
+.react-datepicker__day {
+ color:var(--color-grey-100);
+}
+
+.react-datepicker__day:hover {
+  background-color:var(--color-grey-700)  !important
+}
+
+.react-datepicker__day-name {
+ color:var(--color-grey-100);
+}
+
+.react-datepicker__current-month {
+  color:var(--color-grey-100) 
+}
+
+.react-datepicker__day--selected {
+  background-color: #007bff;
+  color: white;
+}
   `;
+
+
+
+

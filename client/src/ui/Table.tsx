@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { createContext, useContext, type FC, type ReactNode } from 'react';
 
 interface CommonRowProps {
@@ -26,6 +26,12 @@ interface TableBodyProps {
 
 interface CellProps {
   children: ReactNode;
+  align?: string;
+  textoverflow?: string;
+}
+
+interface FooterProps {
+  children: ReactNode;
 }
 
 interface ITable extends FC<TableProps> {
@@ -33,12 +39,13 @@ interface ITable extends FC<TableProps> {
   Header: FC<TableHeaderProps>;
   Body: FC<TableBodyProps>;
   Cell: any;
+  Footer: any;
 }
 
 const CommonRow = styled.div<CommonRowProps>`
   display: grid;
   grid-template-columns: ${(props) => props.$columns};
-  column-gap: 2.4rem;
+  column-gap: 1.25rem;
   align-items: center;
   transition: none;
 `;
@@ -51,57 +58,71 @@ const StyledTable = styled.div.attrs({ className: 'MY_TABLE' })`
   overflow: hidden;
 `;
 
-const StyledHeader = styled(CommonRow).attrs({
-  className: 'MY_TABLE_HEADER ',
-})`
+const StyledHeader = styled(CommonRow)`
   background-color: var(--color-grey-900);
   border-bottom: 1px solid var(--color-grey-700);
   /* text-transform: uppercase; */
-  letter-spacing: 0.9px;
-  font-size: 0.98rem;
   color: var(--color-grey-200);
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+  padding: 1rem;
+  font-size: 1rem;
 `;
 
 const StyledRow = styled(CommonRow).attrs({
   className: 'MY_TABLE_ROW ',
 })`
-  padding: 0.5rem;
   border-bottom: 1px solid var(--color-gray-700);
   transition: background-color 0.2s ease-in-out;
+  padding: 0.9rem;
+  font-size: 0.9rem;
 `;
 
-const StyledCell = styled.div.attrs({
-  className: 'MY_TABLE_CELL ',
-})`
-  padding: 0.3rem 1rem;
+const StyledCell = styled.div<CellProps>`
+  ${(props) =>
+    props.align == 'center' &&
+    css`
+      text-align: :'center';
+    `}
+  ${(props) =>
+    props.align == '' &&
+    css`
+      text-align: :'left';
+    `}
+  ${(props) =>
+    props.textoverflow == 'ellipses' &&
+    css`
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    `}
 `;
 
 const StyledBody = styled.section`
   /* margin: 0.4rem 0; */
-  :last-child {
+  /* :last-child {
     border-bottom: none;
+  } */
+`;
+
+const StyledFooter = styled.footer`
+  background-color: var(--color-grey-900);
+  display: flex;
+  justify-content: end;
+  padding: 1.2rem;
+  border-top: 1px solid var(--color-gray-800);
+
+  /* This will hide the footer when it contains no child elements. Possible thanks to the parent selector :has 🎉 */
+  &:not(:has(*)) {
+    display: none;
   }
 `;
 
-// const Footer = styled.footer`
-//   background-color: var(--color-grey-50);
-//   display: flex;
-//   justify-content: center;
-//   padding: 1.2rem;
-
-//   /* This will hide the footer when it contains no child elements. Possible thanks to the parent selector :has 🎉 */
-//   &:not(:has(*)) {
-//     display: none;
-//   }
-// `;
-
 const Empty = styled.p`
-  font-size: 1.6rem;
+  font-size: 1rem;
   font-weight: 500;
   text-align: center;
-  margin: 2.4rem;
+  margin: 2rem;
 `;
 
 // BEGIN TABLE CONTEXT
@@ -144,13 +165,22 @@ const Row: FC<TableRowProps> = ({ children }) => {
   );
 };
 
-const Cell: FC<CellProps> = ({ children }) => {
-  return <StyledCell>{children}</StyledCell>;
+const Cell: FC<CellProps> = ({ children, align, textoverflow }) => {
+  return (
+    <StyledCell align={align} textoverflow={textoverflow}>
+      {children}
+    </StyledCell>
+  );
+};
+
+const Footer: FC<FooterProps> = ({ children }) => {
+  return <StyledFooter role="row">{children}</StyledFooter>;
 };
 
 Table.Row = Row;
 Table.Header = Header;
 Table.Body = Body;
 Table.Cell = Cell;
+Table.Footer = Footer;
 
 export default Table;

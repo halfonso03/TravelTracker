@@ -1,3 +1,5 @@
+import Header from '../features/Layout/Header';
+
 export default function Travellers() {
-  return <div>Traveller List</div>;
+  return <Header>Traveller List</Header>;
 }

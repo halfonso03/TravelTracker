@@ -11,8 +11,8 @@ using NhacTravelReimbursement.Persistence;
 namespace NhacTravelReimbursement.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250826185816_initial")]
-    partial class initial
+    [Migration("20250827180307_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,11 +48,28 @@ namespace NhacTravelReimbursement.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Fiduciary")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("FromDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("ReimbursementPaidDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("ReimbursementSentDate")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("StatusId")
                         .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("SubmittedDate")
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("ToDate")
                         .HasColumnType("TEXT");

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace NhacTravelReimbursement.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -34,8 +34,13 @@ namespace NhacTravelReimbursement.Migrations
                     ToDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     TravellerName = table.Column<string>(type: "TEXT", nullable: false),
                     StatusId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: false),
+                    Location = table.Column<string>(type: "TEXT", nullable: false),
+                    Fiduciary = table.Column<string>(type: "TEXT", nullable: false),
                     ApprovedDate = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    Description = table.Column<string>(type: "TEXT", nullable: false)
+                    SubmittedDate = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    ReimbursementSentDate = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    ReimbursementPaidDate = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {

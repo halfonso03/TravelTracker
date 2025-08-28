@@ -4,6 +4,10 @@ export function formatDate(date: Date) {
     return format(date, "M/d/yy ");
 }
 
+export function formatDateForCalendar(date: Date) {
+    return format(date, "yyyy-MM-dd");
+}
+
 // export const requiredString = (fieldName: string) =>
 //     z
 //         .string({ error: `${fieldName} is required` })

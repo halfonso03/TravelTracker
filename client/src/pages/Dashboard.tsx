@@ -1,3 +1,5 @@
+import Header from '../features/Layout/Header';
+
 export default function DashBoard() {
-  return <div>DashBoard</div>;
+  return <Header>DashBoard</Header>;
 }

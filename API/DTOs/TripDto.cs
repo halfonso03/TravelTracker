@@ -14,6 +14,7 @@ public class TripDto
     public required string Status { get; set; }
     public required string Description { get; set; }
     public required string Location { get; set; }
+    public required string Fiduciary { get; set; }
 
     public DateTime? ApprovedDate { get; set; }
     public DateTime? SubmittedDate { get; set; }

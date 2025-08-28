@@ -45,6 +45,10 @@ namespace NhacTravelReimbursement.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Fiduciary")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("FromDate")
                         .HasColumnType("TEXT");
 

@@ -14,7 +14,7 @@ public class Trip
     public Status? Status { get; set; }
     public required string Description { get; set; }
     public required string Location { get; set; }
-
+    public required string Fiduciary { get; set; }
     public DateTime? ApprovedDate { get; set; }
     public DateTime? SubmittedDate { get; set; }
     public DateTime? ReimbursementSentDate { get; set; }
