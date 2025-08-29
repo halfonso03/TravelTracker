@@ -124,7 +124,7 @@ export default function TripForm({ trip }: Props) {
         <ButtonText onClick={moveBack}>&larr; Back</ButtonText>
       </div>
       {trip.id !== 0 && (
-        <div className="w-2/7 mb-3">
+        <div className=" mb-3 w-[33rem]">
           <FormRow label="Trip Id" id="id">
             <Input
               type="text"
@@ -133,7 +133,7 @@ export default function TripForm({ trip }: Props) {
               id="id"
               style={{
                 backgroundColor: 'transparent',
-                paddingLeft: '8px',
+                paddingLeft: '0',
                 border: 0,
               }}
             ></Input>
@@ -141,7 +141,7 @@ export default function TripForm({ trip }: Props) {
         </div>
       )}
       <Form onSubmit={handleSubmit(onSubmit, onError)}>
-        <div className="flex flex-col">
+        <div className={'flex flex-col w-full'}>
           <FormStack className="flex justify-between ">
             <FormColumn className="grow-1">
               <FormRow
@@ -171,6 +171,7 @@ export default function TripForm({ trip }: Props) {
                   render={({ field }) => (
                     <DatePicker
                       {...register('fromDate')}
+                      wrapperClassName="w-full"
                       id="fromDate"
                       selected={field.value ? new Date(field.value) : null}
                       dateFormat="MM/dd/yyyy"
@@ -197,6 +198,7 @@ export default function TripForm({ trip }: Props) {
                     <DatePicker
                       {...register('toDate')}
                       id="toDate"
+                      wrapperClassName="w-full"
                       selected={field.value ? new Date(field.value) : null}
                       dateFormat="MM/dd/yyyy"
                       onBlur={field.onBlur} // Important for validation
@@ -279,87 +281,93 @@ export default function TripForm({ trip }: Props) {
               </FormRow>
             </FormColumn>
 
-            {trip.id > 0 && (
-              <FormColumn>
-                <FormRow
-                  label="Submitted Date"
-                  id="submittedDate"
-                  error={errors?.submittedDate?.message}
-                  useMessage={true}
-                >
-                  <Controller
-                    control={control}
-                    name="submittedDate"
-                    render={({ field }) => (
-                      <DatePicker
-                        {...register('submittedDate')}
-                        id="submittedDate"
-                        selected={field.value ? new Date(field.value) : null}
-                        dateFormat="MM/dd/yyyy"
-                        onBlur={field.onBlur} // Important for validation
-                        onChange={(date) => {
-                          field.onChange(date);
-                        }}
-                        className="border border-gray-700 rounded-sm py-[.5rem] px-[.9rem] text-end"
-                        disabled={trip.statusId == 2}
-                      />
-                    )}
-                  ></Controller>
-                </FormRow>
+            <FormColumn>
+              <FormRow
+                label="Submitted Date"
+                id="submittedDate"
+                error={errors?.submittedDate?.message}
+                useMessage={true}
+              >
+                <Controller
+                  control={control}
+                  name="submittedDate"
+                  render={({ field }) => (
+                    <DatePicker
+                      {...register('submittedDate')}
+                      id="submittedDate"
+                      selected={field.value ? new Date(field.value) : null}
+                      dateFormat="MM/dd/yyyy"
+                      onBlur={field.onBlur} // Important for validation
+                      onChange={(date) => {
+                        field.onChange(date);
+                      }}
+                      className="border border-gray-700 rounded-sm py-[.5rem] px-[.9rem] text-end"
+                      disabled={trip.statusId == 2}
+                    />
+                  )}
+                ></Controller>
+              </FormRow>
 
-                <FormRow
-                  label="Sent Date"
-                  id="reimbursementSentDate"
-                  error={errors?.reimbursementSentDate?.message}
-                  useMessage={true}
-                >
-                  <Controller
-                    control={control}
-                    name="reimbursementSentDate"
-                    render={({ field }) => (
-                      <DatePicker
-                        {...register('reimbursementSentDate')}
-                        id="reimbursementSentDate"
-                        selected={field.value ? new Date(field.value) : null}
-                        dateFormat="MM/dd/yyyy"
-                        onBlur={field.onBlur} // Important for validation
-                        onChange={(date) => {
-                          field.onChange(date);
-                        }}
-                        className="border border-gray-700 rounded-sm py-[.5rem] px-[.9rem] text-end"
-                        disabled={trip.statusId == 2}
-                      />
-                    )}
-                  ></Controller>
-                </FormRow>
+              <FormRow
+                label="Sent Date"
+                id="reimbursementSentDate"
+                error={errors?.reimbursementSentDate?.message}
+                useMessage={true}
+              >
+                <Controller
+                  control={control}
+                  name="reimbursementSentDate"
+                  render={({ field }) => (
+                    <DatePicker
+                      {...register('reimbursementSentDate')}
+                      id="reimbursementSentDate"
+                      selected={field.value ? new Date(field.value) : null}
+                      dateFormat="MM/dd/yyyy"
+                      onBlur={field.onBlur} // Important for validation
+                      onChange={(date) => {
+                        field.onChange(date);
+                      }}
+                      className="border border-gray-700 rounded-sm py-[.5rem] px-[.9rem] text-end"
+                      disabled={trip.statusId == 2}
+                    />
+                  )}
+                ></Controller>
+              </FormRow>
 
-                <FormRow
-                  label="Paid Date"
-                  id="reimbursementPaidDate"
-                  error={errors?.reimbursementPaidDate?.message}
-                  useMessage={true}
-                >
-                  <Controller
-                    control={control}
-                    name="reimbursementPaidDate"
-                    render={({ field }) => (
-                      <DatePicker
-                        {...register('reimbursementPaidDate')}
-                        id="reimbursementPaidDate"
-                        selected={field.value ? new Date(field.value) : null}
-                        dateFormat="MM/dd/yyyy"
-                        onBlur={field.onBlur} // Important for validation
-                        onChange={(date) => {
-                          field.onChange(date);
-                        }}
-                        className="border border-gray-700 rounded-sm py-[.5rem] px-[.9rem] text-end"
-                        disabled={trip.statusId == 2}
-                      />
-                    )}
-                  ></Controller>
-                </FormRow>
-              </FormColumn>
-            )}
+              <FormRow
+                label="Paid Date"
+                id="reimbursementPaidDate"
+                error={errors?.reimbursementPaidDate?.message}
+                useMessage={true}
+              >
+                <Controller
+                  control={control}
+                  name="reimbursementPaidDate"
+                  render={({ field }) => (
+                    <DatePicker
+                      {...register('reimbursementPaidDate')}
+                      id="reimbursementPaidDate"
+                      selected={field.value ? new Date(field.value) : null}
+                      dateFormat="MM/dd/yyyy"
+                      onBlur={field.onBlur} // Important for validation
+                      onChange={(date) => {
+                        field.onChange(date);
+                      }}
+                      className="border border-gray-700 rounded-sm py-[.5rem] px-[.9rem] text-end"
+                      disabled={trip.statusId == 2}
+                    />
+                  )}
+                ></Controller>
+              </FormRow>
+            </FormColumn>
+            <FormColumn className="w-1/4">
+              {trip.id > 0 && (
+                <div>
+                  <Heading as={'h4'}>Notifications</Heading>
+                  
+                </div>
+              )}
+            </FormColumn>
           </FormStack>
           <div className="mt-5 mr-15 flex gap-10 justify-end">
             {isValid}
