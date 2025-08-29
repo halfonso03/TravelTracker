@@ -9,18 +9,18 @@ interface ButtonProps {
 
 const sizes = {
   small: css`
-    font-size: .6rem !important;
+    /* font-size: .6rem !important; */
     padding: 0.4rem 0.8rem;
     text-transform: uppercase;
     text-align: center;
   `,
   medium: css`
-    font-size: 1rem !important;
+    /* font-size: 1rem !important; */
     padding: .5rem 1.5rem;
     font-weight: 500;
   `,
   large: css`
-    font-size: 1rem;
+    /* font-size: 1rem; */
     padding: 1.2rem 2.4rem;
     font-weight: 500;
   `,
@@ -50,7 +50,7 @@ const variations = {
   danger: css`
     color: var(--color-red-100);
     background-color: var(--color-red-700);
-
+    border: 1px solid var(--color-red-900);
     &:hover {
       background-color: var(--color-red-800);
     }

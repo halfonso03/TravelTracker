@@ -9,7 +9,7 @@ type Trip = {
     location: string,
     description: string,
     fiduciary: string,
-    // submittedDate?: Date,
-    // reimbursementSentDate?: Date
-    // reimbursementPaidDate?: Date
+    submittedDate?: Date,
+    reimbursementSentDate?: Date
+    reimbursementPaidDate?: Date
 }

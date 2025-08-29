@@ -96,6 +96,7 @@ public class TravelController(AppDbContext context, IMapper mapper) : BaseApiCon
         if (trip != null)
         {
             trip.StatusId = 1;
+            context.Trips.Update(trip);
             await context.SaveChangesAsync();
         }
 
@@ -111,6 +112,7 @@ public class TravelController(AppDbContext context, IMapper mapper) : BaseApiCon
         if (trip != null)
         {
             trip.StatusId = 2;
+            context.Trips.Update(trip);
             await context.SaveChangesAsync();
         }
 

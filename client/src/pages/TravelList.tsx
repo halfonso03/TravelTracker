@@ -27,18 +27,18 @@ export default function TravelList() {
           </div>
         </div>
       </Header>
-      <Table columns=".4fr .5fr .5fr .2fr .4fr .6fr .4fr .5fr .5fr .5fr">
+      <Table columns=".6fr .6fr .4fr .2fr .4fr .6fr .4fr .5fr .5fr .5fr">
         <Table.Header>
           <Table.Cell>Traveller</Table.Cell>
           <Table.Cell>Travel Dates</Table.Cell>
-          <Table.Cell align="center">Authorized Date</Table.Cell>
-          <Table.Cell align="center">Fiduciary</Table.Cell>
+          <Table.Cell>Auth. Date</Table.Cell>
+          <Table.Cell>Fiduciary</Table.Cell>
           <Table.Cell>Location</Table.Cell>
           <Table.Cell>Description</Table.Cell>
           <Table.Cell align="center">Status</Table.Cell>
-          <Table.Cell align="center">Reimbursement Submitted Date</Table.Cell>
-          <Table.Cell align="center">Sent to Fiduciary Date</Table.Cell>
-          <Table.Cell align="center">Paid Date</Table.Cell>
+          <Table.Cell>Reimbursement Submitted Date</Table.Cell>
+          <Table.Cell>Sent to Fiduciary Date</Table.Cell>
+          <Table.Cell>Paid Date</Table.Cell>
           {/* <Table.Cell></Table.Cell> */}
         </Table.Header>
         <Table.Body

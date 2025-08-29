@@ -39,17 +39,16 @@ export const GlobalStyles = createGlobalStyle`:root {
 
   html {
     font-size: 62.5%;
+    
   }
   
   body {
-    font-family:  "Segoe UI Symbol", "Noto Color Emoji";
-
+    font-family:  "Poppins", "Segoe UI Symbol", "Noto Color Emoji", "sans-serif";
     background-color: var(--color-gray-900);
     /* transition: color 0.3s, background-color 0.3s; */
     min-height: 100vh;
     line-height: 1.5;
-    font-size: 1.6rem;
-
+    font-size: 1rem;
   }
   
   input,
@@ -71,7 +70,8 @@ export const GlobalStyles = createGlobalStyle`:root {
   input,
   textarea,
   select {
-    background-color:var(--color-grey-900)
+    background-color:var(--color-grey-900);
+    width:100%;
   }
 
   select:disabled,
@@ -79,7 +79,6 @@ export const GlobalStyles = createGlobalStyle`:root {
   input:disabled {
     background-color: var(--color-grey-800);
     color: var(--color-grey-100);
-    border:0
   }
   
   input:focus,
@@ -129,7 +128,6 @@ export const GlobalStyles = createGlobalStyle`:root {
   
 
   .menu-item {
-    font-size: .5rem;
     background-color: var(--color-grey-1000);
     border-radius: var(--border-radius-sm);
   }

@@ -9,12 +9,13 @@ type FormRowProps = {
   children: ReactNode;
   error?: string | FieldError | Merge<FieldError, FieldErrorsImpl>;
   useMessage?: boolean;
+  swidth?: string | null;
 };
 
 const StyledFormRow = styled.div`
   display: grid;
   align-items: center;
-  grid-template-columns: 1fr 2fr 0.2fr;
+  grid-template-columns: 1fr 1.6fr 0.4fr;
 
   &:first-child {
     padding-top: 0;
@@ -36,9 +37,8 @@ const Label = styled.label`
 `;
 
 const Error = styled.div`
-  font-size: 2rem;
-  padding-left: 0.5rem;
-  color: var(--color-red-700);
+  font-size: 1.5rem;
+  color: var(--color-red-500);
 `;
 
 const FormRow: FC<FormRowProps> = ({
@@ -49,18 +49,28 @@ const FormRow: FC<FormRowProps> = ({
   useMessage,
 }: FormRowProps) => {
   return (
-    <StyledFormRow>
-      <div>{label && <Label htmlFor={id}>{label}</Label>}</div>
-      <div>{children}</div>
+    <StyledFormRow style={{}}>
       <div>
+        {label && (
+          <Label
+            htmlFor={id}
+            style={{
+              textWrap: 'wrap',
+              overflowWrap: 'break-word',
+            }}
+          >
+            {label}
+          </Label>
+        )}
+      </div>
+      <div>{children}</div>
+      <div className="pl-2">
         {error && useMessage && <Error>{error.toString()}</Error>}
-
         {error && !useMessage && (
           <Error>
             <BsFillExclamationTriangleFill></BsFillExclamationTriangleFill>
           </Error>
         )}
-        {!error && <Error style={{ visibility: 'hidden' }}>*</Error>}
       </div>
     </StyledFormRow>
   );

@@ -7,7 +7,7 @@ const ButtonText = styled.button`
   transition: all 0.3s;
   background: none;
   border: none;
-  font-size: 1rem !important;
+  /* font-size: 1rem !important; */
   border-radius: var(--border-radius-sm);
 
   &:hover,

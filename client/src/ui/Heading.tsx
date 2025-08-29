@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components';
 
 const Heading = styled.h1`
-  margin-bottom: 1.5rem;
-
+  display: flex;
+  margin-bottom: 1rem;
   ${(props) =>
     props.as === 'h1' &&
     css`

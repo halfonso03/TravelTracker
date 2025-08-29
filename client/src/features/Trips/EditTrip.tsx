@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
-import { useTrips } from '../../api/useTrips';
 import TripForm from './TripForm';
 import NotFound from '../errors/NotFound';
+import { useTrip } from '../../api/useTrip';
 
 // const Heading = styled.div`
 //   display: flex;
@@ -10,17 +10,14 @@ import NotFound from '../errors/NotFound';
 // `;
 
 export default function EditTrip() {
-  const { id } = useParams();
+  const params = useParams();
+  const id = params!.id!;
 
-  const { trip, loadingTrip } = useTrips(id ? +id : null);
+  const { trip, loadingTrip } = useTrip(id);
 
   if (!id) return <NotFound></NotFound>;
 
   if (loadingTrip) return;
-  console.log('trip', trip);
-  return (
-    <div>
-      <TripForm trip={trip}></TripForm>
-    </div>
-  );
+
+  return <TripForm trip={trip!}></TripForm>;
 }

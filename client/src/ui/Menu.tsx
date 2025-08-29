@@ -16,7 +16,7 @@ const StyledMenuItem = styled.div`
 `;
 
 const StyledMenuText = styled.span`
-  font-size: 1rem;
+  /* font-size: 1rem; */
   color: var(--color-grey-100);
   opacity: 1;
   font-weight: 500;

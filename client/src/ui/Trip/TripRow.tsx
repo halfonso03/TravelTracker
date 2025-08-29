@@ -12,39 +12,47 @@ type Props = {
   trip: Trip;
 };
 
+const Stacked = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+
+  & span:first-child {
+    font-weight: 500;
+  }
+
+  & span:last-child {
+    color: var(--color-grey-500);
+  }
+`;
+
 export default function TripRow({ trip }: Props) {
   return (
     <StyledNavLink to={`/trips/${trip.id}`}>
       <Table.Row>
-        <Table.Cell>{trip.travellerName}</Table.Cell>
-        <Table.Cell>
-          {`${formatDate(trip.fromDate)} to ${formatDate(trip.toDate)}`}
-        </Table.Cell>
-        <Table.Cell align="center">
-          {trip.approvedDate && formatDate(trip.approvedDate)}
-        </Table.Cell>
-        <Table.Cell align="center">{trip.fiduciary}</Table.Cell>
-        <Table.Cell>{trip.location}</Table.Cell>
-        <Table.Cell textoverflow="ellipses">{trip.description}</Table.Cell>
-        <Table.Cell align="center">
+        <Stacked>
+          <span>{trip.travellerName}</span>
+          <span style={{}}>trvellaser@l.com</span>
+        </Stacked>
+        <div>{`${formatDate(trip.fromDate)} to ${formatDate(
+          trip.toDate
+        )}`}</div>
+        <div>{trip.approvedDate && formatDate(trip.approvedDate)}</div>
+        <div className="px-4">{trip.fiduciary}</div>
+        <div>{trip.location}</div>
+        <div>{trip.description}</div>
+        <div>
           <TripStatus status={trip?.status ? trip.status : ''}>
             {trip.status}
           </TripStatus>
-        </Table.Cell>
-        <Table.Cell align="center">
-          {trip.submittedDate && formatDate(trip.submittedDate)}
-        </Table.Cell>
-        <Table.Cell align="center">
+        </div>
+        <div>{trip.submittedDate && formatDate(trip.submittedDate)}</div>
+        <div>
           {trip.reimbursementSentDate && formatDate(trip.reimbursementSentDate)}
-        </Table.Cell>
-        <Table.Cell align="center">
+        </div>
+        <div>
           {trip.reimbursementPaidDate && formatDate(trip.reimbursementPaidDate)}
-        </Table.Cell>
-        {/* <Table.Cell>
-          <StyledNavLink to={`/trips/${trip.id}`}>
-            <HiEye style={{ fontSize: '1.2rem' }}></HiEye>
-          </StyledNavLink>
-        </Table.Cell> */}
+        </div>
       </Table.Row>
     </StyledNavLink>
   );

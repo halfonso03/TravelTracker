@@ -52,7 +52,7 @@ const CommonRow = styled.div<CommonRowProps>`
 
 const StyledTable = styled.div.attrs({ className: 'MY_TABLE' })`
   border: 1px solid var(--color-grey-800);
-  font-size: 0.8rem;
+  /* font-size: 0.8rem; */
   background-color: var(--color-grey-800);
   border-radius: 7px;
   overflow: hidden;
@@ -66,7 +66,7 @@ const StyledHeader = styled(CommonRow)`
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   padding: 1rem;
-  font-size: 1rem;
+  /* font-size: 1rem; */
 `;
 
 const StyledRow = styled(CommonRow).attrs({
@@ -75,7 +75,7 @@ const StyledRow = styled(CommonRow).attrs({
   border-bottom: 1px solid var(--color-gray-700);
   transition: background-color 0.2s ease-in-out;
   padding: 0.9rem;
-  font-size: 0.9rem;
+  /* font-size: 0.9rem; */
 `;
 
 const StyledCell = styled.div<CellProps>`
@@ -119,7 +119,7 @@ const StyledFooter = styled.footer`
 `;
 
 const Empty = styled.p`
-  font-size: 1rem;
+  /* font-size: 1rem; */
   font-weight: 500;
   text-align: center;
   margin: 2rem;
