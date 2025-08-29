@@ -16,14 +16,13 @@ export const useTripMutations = () => {
 
     const updateTrip = useMutation({
         mutationFn: async (trip: TripFormData) => {
-            await agent.put<Trip>(`/travel/${trip.id}`, trip);
-            return trip;
+            const id = trip.id;
+            await agent.put<Trip>(`/travel/${id}`, trip);
         },
-        onSuccess: async (trip: TripFormData) => {
+        onSuccess: async () => {
             await queryClient.invalidateQueries({
-                queryKey: ["trips", trip.id.toString()],
+                queryKey: ["trips"],
             })
-
         }
     })
 

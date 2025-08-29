@@ -36,7 +36,7 @@ const FormColumn = styled.div`
 
 const FormStack = styled.div``;
 
-export default function TripForm({ trip, tripCreated, tripUpdated }: Props) {
+export default function TripForm({ trip }: Props) {
   const navigate = useNavigate();
   const moveBack = useMoveBack();
   const { createTrip, updateTrip, reopenTrip, closeTrip } = useTripMutations();
@@ -64,7 +64,7 @@ export default function TripForm({ trip, tripCreated, tripUpdated }: Props) {
     getValues,
     setValue,
   } = useForm<TripFormSchema>({
-    mode: 'onTouched',
+    mode: 'onChange',
     resolver: yupResolver(tripFormSchema),
     defaultValues: defaultvalues,
   });
@@ -75,12 +75,16 @@ export default function TripForm({ trip, tripCreated, tripUpdated }: Props) {
         await createTrip.mutateAsync(data, {
           onSuccess: (id) => navigate(`/trips/${id}`),
         });
-        tripCreated?.();
       } else {
-        await updateTrip.mutateAsync(data);
-        tripUpdated?.();
+        await updateTrip.mutateAsync(data, {
+          onSuccess: () => {
+            const id = data.id;
+            navigate(`/trips/${id}`);
+          },
+        });
       }
     } catch (error) {
+      alert(error);
       console.log('error', error);
     }
   };
@@ -104,7 +108,7 @@ export default function TripForm({ trip, tripCreated, tripUpdated }: Props) {
 
   return (
     <>
-      <div className="flex justify-between w-[100] ">
+      <div className="flex justify-between w-full">
         <Heading as="h4">
           <div className="flex gap-10 align-middle">
             {trip.id == 0 ? 'Create Trip' : 'Edit Trip'}
@@ -126,6 +130,7 @@ export default function TripForm({ trip, tripCreated, tripUpdated }: Props) {
               type="text"
               disabled={true}
               value={trip.id}
+              id="id"
               style={{
                 backgroundColor: 'transparent',
                 paddingLeft: '8px',
@@ -135,7 +140,7 @@ export default function TripForm({ trip, tripCreated, tripUpdated }: Props) {
           </FormRow>
         </div>
       )}
-      <Form onSubmit={handleSubmit(onSubmit, onError)} type="regular">
+      <Form onSubmit={handleSubmit(onSubmit, onError)}>
         <div className="flex flex-col">
           <FormStack className="flex justify-between ">
             <FormColumn className="grow-1">
@@ -248,7 +253,7 @@ export default function TripForm({ trip, tripCreated, tripUpdated }: Props) {
               </FormRow>
               <FormRow
                 label="Description"
-                id="desciption"
+                id="description"
                 error={errors?.description?.message}
                 useMessage={true}
               >
@@ -373,7 +378,6 @@ export default function TripForm({ trip, tripCreated, tripUpdated }: Props) {
                   children="Save"
                   size="medium"
                   type="submit"
-                  onClick={handleSubmit(onSubmit)}
                   disabled={createTrip.isPending || updateTrip.isPending}
                 ></Button>
               </div>

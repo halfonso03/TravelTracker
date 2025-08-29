@@ -21,17 +21,25 @@ builder.Services.AddAutoMapper(config => config.AddProfile<MappingProfiles>());
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
+// if (app.Environment.IsDevelopment())
+// {
+//     app.MapOpenApi();
+// }
 
 app.UseHttpsRedirection();
 app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod()
     .AllowCredentials()
     .WithOrigins("http://localhost:3000", "https://localhost:3000"));
 
+
+
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
+
 app.MapControllers();
+app.MapFallbackToController("Index", "Fallback");
+
 
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;

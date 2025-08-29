@@ -6,14 +6,13 @@ import { formatDateForCalendar } from '../util/util';
 export default function Calendar() {
   const { trips, loadingTrips } = useTrips();
 
+  if (!trips) return <div>No trips found</div>;
   if (loadingTrips) return <div>Loading...</div>;
 
   const events = trips.map((trip: Trip) => ({
     title: trip.travellerName,
     date: formatDateForCalendar(trip.fromDate),
   }));
-
-  console.log('events', events);
 
   return (
     <div>

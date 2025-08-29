@@ -1,7 +1,7 @@
 import { formatDate } from '../../util/util';
 import Table from '../Table';
 import { NavLink } from 'react-router-dom';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import TripStatus from '../TripStatus';
 
 const StyledNavLink = styled(NavLink)`

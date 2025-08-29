@@ -63,7 +63,7 @@ public class TravelController(AppDbContext context, IMapper mapper) : BaseApiCon
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(EditTripDto editedTrip, int id)
+    public async Task<IActionResult> Update(int id, EditTripDto editedTrip)
     {
         var tripFromDb = await GetTrip(id);
 
