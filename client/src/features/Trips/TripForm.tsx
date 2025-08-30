@@ -21,6 +21,8 @@ import { useMoveBack } from '../../api/hooks/useBack';
 import TripStatus from '../../ui/TripStatus';
 import { useTripMutations } from '../../api/useTripMutations';
 import Heading from '../../ui/Heading';
+import AlertsContainer from '../../ui/AlertsContainer';
+import { Panel } from '../../ui/Panel';
 
 type Props = {
   trip: Trip;
@@ -105,6 +107,21 @@ export default function TripForm({ trip }: Props) {
   useEffect(() => {
     setValue('fiduciary', trip.fiduciary);
   }, [setValue, trip.fiduciary]);
+
+  const alerts = [
+    {
+      type: 1,
+      message: 'Trip Ended over 5 days ago and no reimbursement submitted',
+    },
+    {
+      type: 2,
+      message: 'Trip Ended over 10 days ago and no reimbursement submitted',
+    },
+    {
+      type: 3,
+      message: 'Reimursement submitted but has not been sent',
+    },
+  ];
 
   return (
     <>
@@ -360,12 +377,17 @@ export default function TripForm({ trip }: Props) {
                 ></Controller>
               </FormRow>
             </FormColumn>
+
             <FormColumn className="w-1/4">
               {trip.id > 0 && (
-                <div>
-                  <Heading as={'h4'}>Notifications</Heading>
-                  
-                </div>
+                <Panel>
+                  {trip.id > 0 && (
+                    <div>
+                      <Heading as={'h4'}>Notifications</Heading>
+                      <AlertsContainer alerts={alerts}></AlertsContainer>
+                    </div>
+                  )}
+                </Panel>
               )}
             </FormColumn>
           </FormStack>

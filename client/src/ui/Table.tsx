@@ -119,7 +119,7 @@ const StyledFooter = styled.footer`
 `;
 
 const Empty = styled.p`
-  /* font-size: 1rem; */
+  font-size: 1rem;
   font-weight: 500;
   text-align: center;
   margin: 2rem;

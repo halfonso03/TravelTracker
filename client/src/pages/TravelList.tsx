@@ -42,7 +42,7 @@ export default function TravelList() {
           {/* <Table.Cell></Table.Cell> */}
         </Table.Header>
         <Table.Body
-          data={trips}
+          data={trips as Trip[]}
           render={(trip: Trip) => <TripRow trip={trip} key={trip.id}></TripRow>}
         ></Table.Body>
         <Table.Footer>

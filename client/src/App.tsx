@@ -11,7 +11,7 @@ const StyledBody = styled.div``;
 const StyledOutlet = styled.div`
   flex: 8;
   background-color: var(--color-gray-900);
-  padding: 3rem 6rem;
+  padding: 3rem 3rem;
   color: var(--color-grey-200);
   border-radius: var(--border-radius-sm);
   border: 1px solid var(--color-grey-800);

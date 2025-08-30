@@ -19,7 +19,7 @@ export default function Calendar() {
       <FullCalendar
         plugins={[dayGridPlugin]}
         initialView="dayGridMonth"
-        viewClassNames={'w-[100] text-xl h-2/3 '}
+        viewClassNames={'w-full text-xl h-2/3 '}
         events={events}
       />
     </div>
