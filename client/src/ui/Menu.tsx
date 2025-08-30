@@ -88,7 +88,7 @@ export default function Menu() {
           <StyledMenuText>Reports</StyledMenuText>
         </StyledNavLink>
       </StyledMenuItem>
-      <StyledMenuItem className="menu-item">
+      {/* <StyledMenuItem className="menu-item">
         <StyledNavLink
           to="/travellers"
           className={({ isActive }) => (isActive ? 'menu-item-active' : '')}
@@ -96,7 +96,7 @@ export default function Menu() {
           <HiUsers></HiUsers>
           <StyledMenuText>Travellers</StyledMenuText>
         </StyledNavLink>
-      </StyledMenuItem>
+      </StyledMenuItem> */}
     </StyledMenu>
   );
 }
