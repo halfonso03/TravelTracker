@@ -13,3 +13,14 @@ type Trip = {
     reimbursementSentDate?: Date
     reimbursementPaidDate?: Date
 }
+
+
+
+type Alert = {
+    id: number,
+    name: string;
+    message: string;
+    level: number;
+};
+
+

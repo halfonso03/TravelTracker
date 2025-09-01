@@ -3,21 +3,18 @@ import {
   BsExclamationTriangleFill,
   BsQuestion,
 } from 'react-icons/bs';
-
-type Alert = {
-  type: number;
-  message: string;
-};
+import { HiMiniInformationCircle } from 'react-icons/hi2';
 
 type Props = {
-  alerts: Alert[];
+  alerts: Alert[] | null;
 };
 
-function getIcon(type: number) {
-  if (type == 1) return <BsQuestion className=" text-xl"></BsQuestion>;
-  if (type == 2)
+function getIcon(level: number) {
+  if (level == 0) return <HiMiniInformationCircle></HiMiniInformationCircle>;
+  if (level == 1) return <BsQuestion className=" text-xl"></BsQuestion>;
+  if (level == 2)
     return <BsExclamationTriangle className=" text-xl"></BsExclamationTriangle>;
-  if (type == 3)
+  if (level == 3)
     return (
       <BsExclamationTriangleFill className=" text-xl"></BsExclamationTriangleFill>
     );
@@ -25,19 +22,22 @@ function getIcon(type: number) {
   return null;
 }
 
+function getColor(level: number) {
+  if (level == 0) return 'text-gray-300';
+  if (level == 1) return 'text-yellow-500';
+  if (level == 2) return 'text-red-500';
+  if (level == 3) return 'text-red-500';
+}
+
 export default function AlertsContainer({ alerts }: Props) {
-  function getColor(type: number) {
-    if (type == 1) return 'text-yellow-500';
-    if (type == 2) return 'text-red-500';
-    if (type == 3) return 'text-red-500';
-  }
+  if (!alerts) return null;
 
   return (
     <ul>
       {alerts.map((s, index) => (
         <div className="flex" key={index}>
-          <div className={`my-2 ${getColor(s.type)} flex gap-2 `}>
-            <div className="self-start mt-1">{getIcon(s.type)}</div>
+          <div className={`my-2 ${getColor(s.level)} flex gap-2 `}>
+            <div className="self-center">{getIcon(s.level)}</div>
             <div className="self-start">{s.message}</div>
           </div>
         </div>

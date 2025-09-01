@@ -32,7 +32,8 @@ public class TravelController(AppDbContext context, IMapper mapper) : BaseApiCon
     {
         var tripsFromDb = await context.Trips
                                 .Include(x => x.Status)
-                                .OrderBy(x => x.FromDate)
+                                .OrderBy(x => x.StatusId)
+                                .ThenByDescending(x => x.ToDate)
                                 .ToListAsync();
 
         var tripsList = new List<TripDto>();

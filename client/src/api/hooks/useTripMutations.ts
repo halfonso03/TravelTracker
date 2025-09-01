@@ -1,6 +1,6 @@
 import { useQueryClient, useMutation } from "@tanstack/react-query";
-import type { TripFormData } from "../schemas/tripSchema";
-import agent from "./agent";
+import type { TripFormData } from "../../schemas/tripSchema";
+import agent from "../agent";
 
 export const useTripMutations = () => {
 

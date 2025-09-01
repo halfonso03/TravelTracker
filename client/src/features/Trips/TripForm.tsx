@@ -19,15 +19,19 @@ import { useEffect, type ChangeEvent } from 'react';
 import ButtonText from '../../ui/ButtonText';
 import { useMoveBack } from '../../api/hooks/useBack';
 import TripStatus from '../../ui/TripStatus';
-import { useTripMutations } from '../../api/useTripMutations';
 import Heading from '../../ui/Heading';
 import AlertsContainer from '../../ui/AlertsContainer';
 import { Panel } from '../../ui/Panel';
+import { useTripMutations } from '../../api/hooks/useTripMutations';
+import { BiTimer } from 'react-icons/bi';
+import { formatDate } from '../../util/util';
 
 type Props = {
   trip: Trip;
   tripCreated?: () => void;
   tripUpdated?: () => void;
+  alerts?: Alert[] | null;
+  clockStart?: Date | null;
 };
 
 const FormColumn = styled.div`
@@ -38,7 +42,7 @@ const FormColumn = styled.div`
 
 const FormStack = styled.div``;
 
-export default function TripForm({ trip }: Props) {
+export default function TripForm({ trip, alerts, clockStart }: Props) {
   const navigate = useNavigate();
   const moveBack = useMoveBack();
   const { createTrip, updateTrip, reopenTrip, closeTrip } = useTripMutations();
@@ -107,21 +111,6 @@ export default function TripForm({ trip }: Props) {
   useEffect(() => {
     setValue('fiduciary', trip.fiduciary);
   }, [setValue, trip.fiduciary]);
-
-  const alerts = [
-    {
-      type: 1,
-      message: 'Trip Ended over 5 days ago and no reimbursement submitted',
-    },
-    {
-      type: 2,
-      message: 'Trip Ended over 10 days ago and no reimbursement submitted',
-    },
-    {
-      type: 3,
-      message: 'Reimursement submitted but has not been sent',
-    },
-  ];
 
   return (
     <>
@@ -384,7 +373,17 @@ export default function TripForm({ trip }: Props) {
                   {trip.id > 0 && (
                     <div>
                       <Heading as={'h4'}>Notifications</Heading>
-                      <AlertsContainer alerts={alerts}></AlertsContainer>
+                      {clockStart && (
+                        <div className="flex gap-3 mb-6">
+                          <div className="border border-green-600"></div>
+                          <BiTimer className="text-2xl"></BiTimer>
+                          Submit clock starts on{' '}
+                          {formatDate(clockStart) + ' 8:00 AM'}
+                        </div>
+                      )}
+                      <AlertsContainer
+                        alerts={alerts as Alert[] | null}
+                      ></AlertsContainer>
                     </div>
                   )}
                 </Panel>

@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
-import { useTrips } from '../api/useTrips';
 import Header from '../features/Layout/Header';
 import Button from '../ui/Button';
 import Table from '../ui/Table';
 import TripRow from '../ui/Trip/TripRow';
+import { useTrips } from '../api/hooks/useTrips';
 
 export default function TravelList() {
   const { trips, loadingTrips } = useTrips();
@@ -17,11 +17,7 @@ export default function TravelList() {
         <div className="flex justify-between">
           <div>All Trips</div>
           <div>
-            <Button
-              variation="primary"
-              size="medium"
-              onClick={() => navigate('/trips/new')}
-            >
+            <Button variation="primary" onClick={() => navigate('/trips/new')}>
               Create Trip
             </Button>
           </div>

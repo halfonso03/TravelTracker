@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import { HiCalendar, HiOutlineHome, HiUsers } from 'react-icons/hi2';
+import { HiCalendar, HiOutlineHome } from 'react-icons/hi2';
 import { BiBriefcase } from 'react-icons/bi';
 import { BsFileExcel } from 'react-icons/bs';
 

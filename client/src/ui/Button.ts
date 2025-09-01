@@ -4,31 +4,27 @@ type Sizes = 'small' | 'medium' | 'large';
 
 interface ButtonProps {
   variation: ButtonType;
-  size: Sizes
+  size?: Sizes
 }
 
 const sizes = {
   small: css`
-    /* font-size: .6rem !important; */
-    padding: 0.4rem 0.8rem;
+    font-size: .9rem !important;
+    padding: 0.2rem 0.6rem;
     text-transform: uppercase;
     text-align: center;
   `,
   medium: css`
-    /* font-size: 1rem !important; */
-    padding: .5rem 1.5rem;
+    font-size: 1rem !important;
+    padding: .4rem 1rem;
     font-weight: 500;
   `,
   large: css`
-    /* font-size: 1rem; */
-    padding: 1.2rem 2.4rem;
+    font-size: 1.2rem;
+    padding: .6rem 1.2rem;
     font-weight: 500;
   `,
 };
-
-
-
-
 
 const variations = {
   primary: css`
@@ -63,7 +59,7 @@ const Button = styled.button<ButtonProps>`
   border-radius: var(--border-radius-sm);
   box-shadow: var(--shadow-sm);
   ${(props) => variations[props.variation]}
-  ${(props) => sizes[props.size]}
+  ${(props) => !props.size ? sizes['medium'] : sizes[props.size]}
 `;
 
 Button.defaultProps = {
