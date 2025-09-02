@@ -28,9 +28,9 @@ namespace NhacTravelReimbursement.Controllers
             byte[] byteArray = Convert.FromBase64String(report);
 
             await emailSender.SendEmail(
-                "Report",
-                "",
-                email,
+                subject: "Report",
+                body: "",
+                to: email,
                 attachments:
                 [
                     new Attachment($"Reimbursements.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", byteArray)

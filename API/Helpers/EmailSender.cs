@@ -30,7 +30,7 @@ namespace NhacTravelReimbursement.Helpers
         }
 
 
-        public async Task SendEmail(string subject, string body, string to = "", string from = "", Attachment[]? attachments = null, IEnumerable<string>? ccs = null)
+        public async Task SendEmail(string subject, string body, string to = "", Attachment[]? attachments = null, IEnumerable<string>? ccs = null)
         {
             if (!emailNotificationsEnabled) return;
 
@@ -46,7 +46,7 @@ namespace NhacTravelReimbursement.Helpers
                 }
 
 
-                from = _emailConfig.From;
+                var from = _emailConfig.From;
 
                 var message = new Message(to, subject, body, from, ccs);
 

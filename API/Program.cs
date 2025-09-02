@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using NhacTravelReimbursement.Configuration;
 using NhacTravelReimbursement.Core;
 using NhacTravelReimbursement.Helpers;
 using NhacTravelReimbursement.Persistence;
@@ -8,6 +9,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+
+
+var emailConfig = builder.Configuration
+    .GetSection("EmailConfiguration")
+    .Get<EmailConfiguration>();
+
+builder.Services.AddTransient(typeof(EmailConfiguration), emailConfig!.GetType());
+
 builder.Services.AddOpenApi();
 
 builder.Services.AddControllers();
@@ -18,6 +27,8 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
     opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 builder.Services.AddAutoMapper(config => config.AddProfile<MappingProfiles>());
+
+builder.Services.AddTransient<EmailConfiguration>();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.AddTransient<IReportService, ReportService>();
 
