@@ -33,6 +33,9 @@ const variations = {
     border: 1px solid var(--color-brand-500);
     &:hover {
       background-color: var(--color-brand-700);
+    };
+    &:disabled {
+      opacity: .6;
     }
   `,
   secondary: css`
@@ -68,6 +71,7 @@ const Button = styled.button<ButtonProps>`
   box-shadow: var(--shadow-sm);
   ${(props) => variations[props.variation]}
   ${(props) => !props.size ? sizes['medium'] : sizes[props.size]}
+ 
 `;
 
 Button.defaultProps = {

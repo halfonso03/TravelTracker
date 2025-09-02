@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using NhacTravelReimbursement.Core;
+using NhacTravelReimbursement.Helpers;
 using NhacTravelReimbursement.Persistence;
+using NhacTravelReimbursement.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +18,8 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
     opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 builder.Services.AddAutoMapper(config => config.AddProfile<MappingProfiles>());
+builder.Services.AddTransient<IEmailSender, EmailSender>();
+builder.Services.AddTransient<IReportService, ReportService>();
 
 
 var app = builder.Build();
