@@ -20,8 +20,7 @@ interface FormSelectProps {
 }
 
 const StyledSelect = styled.select<FormSelectProps>`
-  /* font-size: 1.4rem; */
-  padding: 0.6rem 0.8rem;
+  padding: 0.6rem 0.5rem;
   border: 1px solid
     ${(props) =>
       props.type === 'white'

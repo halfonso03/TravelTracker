@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-type ButtonType = 'primary' | 'secondary' | 'danger';
+type ButtonType = 'primary' | 'secondary' | 'danger' | 'danger2';
 type Sizes = 'small' | 'medium' | 'large';
 
 interface ButtonProps {
@@ -51,6 +51,14 @@ const variations = {
       background-color: var(--color-red-800);
     }
   `,
+  danger2: css`
+    color: var(--color-red-100);
+    background-color: var(--color-red-900);
+    border: 1px solid var(--color-red-1000);
+    &:hover {
+      background-color: var(--color-red-800);
+    }
+  `
 };
 
 

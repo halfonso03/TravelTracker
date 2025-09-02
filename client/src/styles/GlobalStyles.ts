@@ -331,6 +331,17 @@ export const GlobalStyles = createGlobalStyle`:root {
   background-color: #007bff;
   color: white;
 }
+
+// remove extra border around calendar events
+.fc-h-event {
+  border:0;
+  background-color: transparent
+}
+.fc-button,.fc-button:focus {
+    background-color: var(--color-brand-600) !important;
+    border:1px solid var(--color-brand-500) !important;
+}
+
   `;
 
 

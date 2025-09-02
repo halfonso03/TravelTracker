@@ -8,9 +8,10 @@ public class AppDbContext : DbContext
 {
     public DbSet<Trip> Trips { get; set; }
     public DbSet<Status> Statuses { get; set; }
+    public DbSet<Traveller> Travellers { get; set; }
 
-    public AppDbContext(DbContextOptions options): base(options)
+    public AppDbContext(DbContextOptions options) : base(options)
     {
-        
+
     }
 }

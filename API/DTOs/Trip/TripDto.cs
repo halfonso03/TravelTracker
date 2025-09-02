@@ -21,4 +21,6 @@ public class TripDto
     public DateTime? ReimbursementSentDate { get; set; }
     public DateTime? ReimbursementPaidDate { get; set; }
 
+    public required int TravellerId { get; set; }
+
 }

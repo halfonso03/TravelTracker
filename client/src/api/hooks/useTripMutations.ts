@@ -32,16 +32,28 @@ export const useTripMutations = () => {
             await agent.post(`/travel/${id}/close`)
             return id;
         },
-        onSuccess(data) {
-            console.log(data);
-
-        },
         onMutate: async (id: string) => {
             await queryClient.cancelQueries({ queryKey: ["trips", id] });
             const previousItems = queryClient.getQueryData(["trips", id]);
             queryClient.setQueryData(["trips", id.toString()], (old: Trip) => {
                 console.log('old', old)
                 return { ...old, statusId: 2, status: "Closed" };
+            });
+            return { previousItems };
+        }
+    });
+
+    const cancelTrip = useMutation({
+        mutationFn: async (id: string) => {
+            await agent.post(`/travel/${id}/close`)
+            return id;
+        },
+        onMutate: async (id: string) => {
+            await queryClient.cancelQueries({ queryKey: ["trips", id] });
+            const previousItems = queryClient.getQueryData(["trips", id]);
+            queryClient.setQueryData(["trips", id.toString()], (old: Trip) => {
+                console.log('old', old)
+                return { ...old, statusId: 3, status: "Cancelled" };
             });
             return { previousItems };
         }
@@ -67,5 +79,5 @@ export const useTripMutations = () => {
         }
     })
 
-    return { createTrip, updateTrip, reopenTrip, closeTrip }
+    return { createTrip, updateTrip, reopenTrip, closeTrip, cancelTrip }
 }

@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import { HiCalendar, HiOutlineHome } from 'react-icons/hi2';
+import { HiCalendar, HiOutlineHome, HiUsers } from 'react-icons/hi2';
 import { BiBriefcase } from 'react-icons/bi';
 import { BsFileExcel } from 'react-icons/bs';
 
@@ -88,7 +88,7 @@ export default function Menu() {
           <StyledMenuText>Reports</StyledMenuText>
         </StyledNavLink>
       </StyledMenuItem>
-      {/* <StyledMenuItem className="menu-item">
+      <StyledMenuItem className="menu-item">
         <StyledNavLink
           to="/travellers"
           className={({ isActive }) => (isActive ? 'menu-item-active' : '')}
@@ -96,7 +96,7 @@ export default function Menu() {
           <HiUsers></HiUsers>
           <StyledMenuText>Travellers</StyledMenuText>
         </StyledNavLink>
-      </StyledMenuItem> */}
+      </StyledMenuItem>
     </StyledMenu>
   );
 }

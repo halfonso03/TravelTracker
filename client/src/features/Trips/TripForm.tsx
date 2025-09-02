@@ -1,7 +1,5 @@
+import { useEffect } from 'react';
 import styled from 'styled-components';
-import FormRow from '../../ui/FormRow';
-import Form from '../../ui/Form';
-import Button from '../../ui/Button';
 import { useNavigate } from 'react-router-dom';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -12,10 +10,12 @@ import {
 } from '../../schemas/tripSchema';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import FormRow from '../../ui/FormRow';
+import Form from '../../ui/Form';
+import Button from '../../ui/Button';
 import Input from '../../ui/Input';
 import Textarea from '../../ui/TextArea';
 import Select from '../../ui/Select';
-import { useEffect, type ChangeEvent } from 'react';
 import ButtonText from '../../ui/ButtonText';
 import { useMoveBack } from '../../api/hooks/useBack';
 import TripStatus from '../../ui/TripStatus';
@@ -25,6 +25,12 @@ import { Panel } from '../../ui/Panel';
 import { useTripMutations } from '../../api/hooks/useTripMutations';
 import { BiTimer } from 'react-icons/bi';
 import { formatDate } from '../../util/util';
+import { useTravellers } from '../../api/hooks/useTravellers';
+
+type SelectOption = {
+  value: string;
+  text: string;
+};
 
 type Props = {
   trip: Trip;
@@ -45,11 +51,13 @@ const FormStack = styled.div``;
 export default function TripForm({ trip, alerts, clockStart }: Props) {
   const navigate = useNavigate();
   const moveBack = useMoveBack();
-  const { createTrip, updateTrip, reopenTrip, closeTrip } = useTripMutations();
+  const { createTrip, updateTrip, reopenTrip, closeTrip, cancelTrip } =
+    useTripMutations();
+  const { travellers, loadingTravellers } = useTravellers();
 
   const defaultvalues: TripFormSchema = {
     id: trip.id,
-    travellerName: trip.travellerName,
+    travellerId: trip.travellerId,
     fromDate: trip.fromDate,
     toDate: trip.toDate,
     location: trip.location,
@@ -99,27 +107,40 @@ export default function TripForm({ trip, alerts, clockStart }: Props) {
     console.log('errors', errors, getValues());
   }
 
-  const selectionChanged = (e: ChangeEvent<HTMLSelectElement>) => {
-    trip.fiduciary = e.target.value;
-    setValue('fiduciary', e.target.value);
-  };
+  // const fiduciaryChanged = (e: ChangeEvent<HTMLSelectElement>) => {
+  //   // trip.fiduciary = e.target.value;
+  //   // setValue('fiduciary', e.target.value);
+  // };
+
+  // const travellerChanged = (e: ChangeEvent<HTMLSelectElement>) => {
+  //   // trip.fiduciary = e.target.value;
+  //   // setValue('fiduciary', e.target.value);
+  // };
 
   function getStatus(statusId: number) {
-    return statusId == 1 ? 'Open' : 'Closed';
+    if (statusId == 1) return 'Open';
+    if (statusId == 2) return 'Closed';
+    if (statusId == 3) return 'Cancelled';
+    return 'unknown';
   }
 
   useEffect(() => {
     setValue('fiduciary', trip.fiduciary);
-  }, [setValue, trip.fiduciary]);
+    setValue('travellerId', trip.travellerId);
+  }, [setValue, trip.fiduciary, trip.travellerId]);
+
+  if (loadingTravellers) return <div>Loading...</div>;
+
+  const isDisabled = trip.statusId != 1;
 
   return (
     <>
       <div className="flex justify-between w-full">
         <Heading as="h4">
-          <div className="flex gap-10 align-middle">
+          <div className="flex gap-22 align-middle">
             {trip.id == 0 ? 'Create Trip' : 'Edit Trip'}
             {trip.id !== 0 && (
-              <div className="w-[4rem] self-center text-sm">
+              <div className="w-[6rem] self-center text-sm">
                 <TripStatus status={getStatus(trip.statusId)}>
                   {getStatus(trip.statusId)}
                 </TripStatus>
@@ -130,7 +151,7 @@ export default function TripForm({ trip, alerts, clockStart }: Props) {
         <ButtonText onClick={moveBack}>&larr; Back</ButtonText>
       </div>
       {trip.id !== 0 && (
-        <div className=" mb-3 w-[33rem]">
+        <div className=" mb-3 w-[34rem]">
           <FormRow label="Trip Id" id="id">
             <Input
               type="text"
@@ -150,7 +171,22 @@ export default function TripForm({ trip, alerts, clockStart }: Props) {
         <div className={'flex flex-col w-full'}>
           <FormStack className="flex justify-between ">
             <FormColumn className="grow-1">
-              <FormRow
+              <FormRow label="Traveller" id="travellerId">
+                <Select
+                  {...register('travellerId')}
+                  id="travellerId"
+                  type="dark"
+                  // onChange={travellerChanged}
+                  options={travellers!.map((t) => {
+                    return {
+                      value: t.id.toString(),
+                      text: t.firstName + ' ' + t.lastName,
+                    } as SelectOption;
+                  })}
+                  disabled={isDisabled}
+                ></Select>
+              </FormRow>
+              {/* <FormRow
                 label="Traveller Name"
                 id="travellerName"
                 error={errors?.travellerName?.message}
@@ -158,12 +194,12 @@ export default function TripForm({ trip, alerts, clockStart }: Props) {
               >
                 <Input
                   type="text"
-                  disabled={trip.statusId == 2}
+                  disabled={isDisabled}
                   id="travellerName"
                   defaultValue={trip.travellerName}
                   {...register('travellerName')}
                 ></Input>
-              </FormRow>
+              </FormRow> */}
               <div className="my-7"></div>
               <FormRow
                 label="Trip Start Date"
@@ -186,7 +222,7 @@ export default function TripForm({ trip, alerts, clockStart }: Props) {
                         field.onChange(date);
                       }}
                       className="border border-gray-700 rounded-sm py-[.5rem] px-[.9rem] text-end w-[15rem]"
-                      disabled={trip.statusId == 2}
+                      disabled={isDisabled}
                     />
                   )}
                 ></Controller>
@@ -212,7 +248,7 @@ export default function TripForm({ trip, alerts, clockStart }: Props) {
                         field.onChange(date);
                       }}
                       className="border border-gray-700 rounded-sm py-[.5rem] px-[.9rem] text-end w-[15rem]"
-                      disabled={trip.statusId == 2}
+                      disabled={isDisabled}
                     />
                   )}
                 ></Controller>
@@ -239,7 +275,7 @@ export default function TripForm({ trip, alerts, clockStart }: Props) {
                         field.onChange(date);
                       }}
                       className="border border-gray-700 rounded-sm py-[.5rem] px-[.9rem] text-end"
-                      disabled={trip.statusId == 2}
+                      disabled={isDisabled}
                     />
                   )}
                 ></Controller>
@@ -256,7 +292,7 @@ export default function TripForm({ trip, alerts, clockStart }: Props) {
                   id="location"
                   defaultValue={trip.location}
                   {...register('location')}
-                  disabled={trip.statusId == 2}
+                  disabled={isDisabled}
                 ></Input>
               </FormRow>
               <FormRow
@@ -269,7 +305,7 @@ export default function TripForm({ trip, alerts, clockStart }: Props) {
                   id="description"
                   defaultValue={trip.description}
                   {...register('description')}
-                  disabled={trip.statusId == 2}
+                  disabled={isDisabled}
                 ></Textarea>
               </FormRow>
               <FormRow label="Fiduciary" id="fiduciary">
@@ -277,12 +313,12 @@ export default function TripForm({ trip, alerts, clockStart }: Props) {
                   {...register('fiduciary')}
                   id="fiduciary"
                   type="dark"
-                  onChange={selectionChanged}
+                  // onChange={fiduciaryChanged}
                   options={[
                     { value: 'MCSO', text: 'MCSO' },
                     { value: 'CAM', text: 'CAM' },
                   ]}
-                  disabled={trip.statusId == 2}
+                  disabled={isDisabled}
                 ></Select>
               </FormRow>
             </FormColumn>
@@ -308,7 +344,7 @@ export default function TripForm({ trip, alerts, clockStart }: Props) {
                         field.onChange(date);
                       }}
                       className="border border-gray-700 rounded-sm py-[.5rem] px-[.9rem] text-end"
-                      disabled={trip.statusId == 2}
+                      disabled={isDisabled}
                     />
                   )}
                 ></Controller>
@@ -334,7 +370,7 @@ export default function TripForm({ trip, alerts, clockStart }: Props) {
                         field.onChange(date);
                       }}
                       className="border border-gray-700 rounded-sm py-[.5rem] px-[.9rem] text-end"
-                      disabled={trip.statusId == 2}
+                      disabled={isDisabled}
                     />
                   )}
                 ></Controller>
@@ -360,7 +396,7 @@ export default function TripForm({ trip, alerts, clockStart }: Props) {
                         field.onChange(date);
                       }}
                       className="border border-gray-700 rounded-sm py-[.5rem] px-[.9rem] text-end"
-                      disabled={trip.statusId == 2}
+                      disabled={isDisabled}
                     />
                   )}
                 ></Controller>
@@ -390,7 +426,7 @@ export default function TripForm({ trip, alerts, clockStart }: Props) {
               )}
             </FormColumn>
           </FormStack>
-          <div className="mt-5 mr-15 flex gap-10 justify-end">
+          <div className="mt-10 mr-15 flex gap-10 justify-between">
             {isValid}
             {trip.statusId == 1 && (
               <div className="flex gap-2">
@@ -411,28 +447,38 @@ export default function TripForm({ trip, alerts, clockStart }: Props) {
                 ></Button>
               </div>
             )}
-            {trip.statusId == 1 && trip.id > 0 && (
-              <>
+            <div className="flex gap-3">
+              {trip.statusId == 1 && trip.id > 0 && (
+                <>
+                  <Button
+                    variation="danger"
+                    children="Close Trip"
+                    size="medium"
+                    type="button"
+                    disabled={isValid !== undefined && !isValid}
+                    onClick={() => closeTrip.mutate(trip.id.toString())}
+                  ></Button>
+                  <Button
+                    variation="danger2"
+                    children="Cancel Trip"
+                    size="medium"
+                    type="button"
+                    disabled={isValid !== undefined && !isValid}
+                    onClick={() => cancelTrip.mutate(trip.id.toString())}
+                  ></Button>
+                </>
+              )}
+              {trip.statusId == 2 && (
                 <Button
                   variation="danger"
-                  children="Close Trip"
+                  children="Reopen Trip"
                   size="medium"
                   type="button"
                   disabled={isValid !== undefined && !isValid}
-                  onClick={() => closeTrip.mutate(trip.id.toString())}
+                  onClick={() => reopenTrip.mutate(trip.id.toString())}
                 ></Button>
-              </>
-            )}
-            {trip.statusId == 2 && (
-              <Button
-                variation="danger"
-                children="Reopen Trip"
-                size="medium"
-                type="button"
-                disabled={isValid !== undefined && !isValid}
-                onClick={() => reopenTrip.mutate(trip.id.toString())}
-              ></Button>
-            )}
+              )}
+            </div>
           </div>
         </div>
       </Form>

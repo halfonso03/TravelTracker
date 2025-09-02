@@ -32,17 +32,14 @@ public class TravelController(AppDbContext context, IMapper mapper) : BaseApiCon
     {
         var tripsFromDb = await context.Trips
                                 .Include(x => x.Status)
+                                .Include(x => x.Traveller)
                                 .OrderBy(x => x.StatusId)
                                 .ThenByDescending(x => x.ToDate)
                                 .ToListAsync();
 
-        var tripsList = new List<TripDto>();
-
         var tripDtos = mapper.Map<List<TripDto>>(tripsFromDb);
 
-        tripsList.AddRange(tripDtos);
-
-        return Ok(tripsList);
+        return Ok(tripDtos);
     }
 
     [HttpPost]
@@ -120,12 +117,28 @@ public class TravelController(AppDbContext context, IMapper mapper) : BaseApiCon
         return Ok();
     }
 
-    private async Task<Trip?> GetTrip(int id)
+    [HttpPost("{id}/cancel")]
+    public async Task<IActionResult> Cancel(int id)
     {
-        return await context.Trips.FirstOrDefaultAsync(x => x.Id == id);
+        var trip = await GetTrip(id);
+
+        if (trip != null)
+        {
+            trip.StatusId = 3;
+            context.Trips.Update(trip);
+            await context.SaveChangesAsync();
+        }
+
+        return Ok();
     }
 
-
+    private async Task<Trip?> GetTrip(int id)
+    {
+        return await context.Trips
+                                .Include(x => x.Traveller)
+                                .Include(x => x.Status)
+                                .FirstOrDefaultAsync(x => x.Id == id);
+    }
 }
 
 

@@ -5,11 +5,12 @@ import { BsFillExclamationTriangleFill } from 'react-icons/bs';
 
 type FormRowProps = {
   id: string;
-  label: string;
+  label?: string;
   children: ReactNode;
   error?: string | FieldError | Merge<FieldError, FieldErrorsImpl>;
   useMessage?: boolean;
   swidth?: string | null;
+  className?: string;
 };
 
 const StyledFormRow = styled.div`
@@ -47,11 +48,12 @@ const FormRow: FC<FormRowProps> = ({
   error,
   children,
   useMessage,
+  className,
 }: FormRowProps) => {
   return (
-    <StyledFormRow style={{}}>
-      <div>
-        {label && (
+    <StyledFormRow style={{}} className={className}>
+      {label && (
+        <div>
           <Label
             htmlFor={id}
             style={{
@@ -61,8 +63,8 @@ const FormRow: FC<FormRowProps> = ({
           >
             {label}
           </Label>
-        )}
-      </div>
+        </div>
+      )}
       <div>{children}</div>
       <div className="pl-2">
         {error && useMessage && <Error>{error.toString()}</Error>}

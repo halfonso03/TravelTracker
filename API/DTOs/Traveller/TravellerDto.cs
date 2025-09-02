@@ -1,9 +1,9 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace NhacTravelReimbursement.Domain;
+namespace NhacTravelReimbursement.DTOs;
 
-public class Traveller
+public class TravellerDto
 {
     public int Id { get; set; }
 
@@ -15,5 +15,4 @@ public class Traveller
 
     [Required]
     public required string Email { get; set; }
-
 }

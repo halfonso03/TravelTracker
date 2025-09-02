@@ -3,7 +3,6 @@ import agent from "../agent";
 
 export const useReports = () => {
 
-
     const [loading, setLoading] = useState(false);
 
     async function getReport() {
@@ -60,6 +59,16 @@ export const useReports = () => {
         //     .catch((error) => console.error('Error:', error));
     }
 
-    return { getReport, loadingReport: loading }
+
+
+    const emailReport = async (email: string, reportPath: string) => {
+        await agent.get('/reports/email', {
+            params: {
+                email, reportPath
+            }
+        })
+    }
+
+    return { getReport, loadingReport: loading, emailReport }
 
 }

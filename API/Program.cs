@@ -27,7 +27,9 @@ var app = builder.Build();
 // }
 
 app.UseHttpsRedirection();
-app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod()
+app.UseCors(x =>
+    x.AllowAnyHeader()
+    .AllowAnyMethod()
     .AllowCredentials()
     .WithOrigins("http://localhost:3000", "https://localhost:3000"));
 

@@ -1,6 +1,6 @@
 type Trip = {
     id: number
-    travellerName: string,
+    travellerId: number,
     fromDate: Date,
     toDate: Date,
     approvedDate: Date,
@@ -12,9 +12,17 @@ type Trip = {
     submittedDate?: Date,
     reimbursementSentDate?: Date
     reimbursementPaidDate?: Date
+    travellerName?: string
 }
 
 
+
+type Traveller = {
+    id: number,
+    firstName: string,
+    lastName: string,
+    email: string
+}
 
 type Alert = {
     id: number,

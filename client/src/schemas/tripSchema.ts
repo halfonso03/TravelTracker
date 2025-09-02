@@ -2,7 +2,6 @@ import * as yup from 'yup';
 
 export interface TripFormData {
     id: number
-    travellerName: string,
     fromDate: Date | null,
     toDate: Date | null,
     location: string,
@@ -13,13 +12,14 @@ export interface TripFormData {
     // status: string,
     submittedDate?: Date | null,
     reimbursementSentDate?: Date | null
-    reimbursementPaidDate?: Date
+    reimbursementPaidDate?: Date,
+    travellerId: number
 }
 
 
 export const tripFormSchema = yup.object().shape({
     id: yup.number().required("*"),
-    travellerName: yup.string().required('*'),
+    travellerId: yup.number().required('*'),
     fromDate: yup.date().required('*'),
     location: yup.string().required('*'),
     description: yup.string().required('*'),
@@ -36,7 +36,7 @@ export const tripFormSchema = yup.object().shape({
 
 export interface TripFormSchema {
     id: number
-    travellerName: string,
+    travellerId: number,
     fromDate: Date,
     toDate: Date,
     location: string,

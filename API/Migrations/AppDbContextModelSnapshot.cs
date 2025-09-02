@@ -32,6 +32,29 @@ namespace NhacTravelReimbursement.Migrations
                     b.ToTable("Statuses");
                 });
 
+            modelBuilder.Entity("NhacTravelReimbursement.Domain.Traveller", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Travellers");
+                });
+
             modelBuilder.Entity("NhacTravelReimbursement.Domain.Trip", b =>
                 {
                     b.Property<int>("Id")
@@ -71,13 +94,14 @@ namespace NhacTravelReimbursement.Migrations
                     b.Property<DateTime>("ToDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("TravellerName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("TravellerId")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
                     b.HasIndex("StatusId");
+
+                    b.HasIndex("TravellerId");
 
                     b.ToTable("Trips");
                 });
@@ -90,7 +114,15 @@ namespace NhacTravelReimbursement.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("NhacTravelReimbursement.Domain.Traveller", "Traveller")
+                        .WithMany()
+                        .HasForeignKey("TravellerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Status");
+
+                    b.Navigation("Traveller");
                 });
 #pragma warning restore 612, 618
         }
