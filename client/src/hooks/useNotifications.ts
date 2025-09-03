@@ -3,7 +3,7 @@ import { addDays, differenceInDays } from "date-fns";
 
 
 export const FIVE_DAYS_SINCE_TRIP_ENDED = 'FiveDaysSinceSubmitted';
-export const TEN_DAYS_SINCE_TRIP_ENDED = 'TenDaysSinceSubmitted';
+export const NINE_DAYS_SINCE_TRIP_ENDED = 'NineDaysSinceSubmitted';
 export const X_DAYS_SINCE_SUBMITTED_AND_NOT_SENT = 'XDaysSinceSubmmitedAndNotSent';
 export const OVER_FIVE_DAYS_TO_SUBMIT = 'OVerFiveDaysToSubmit';
 
@@ -14,10 +14,10 @@ export const OVER_FIVE_DAYS_TO_SUBMIT = 'OVerFiveDaysToSubmit';
 */
 export const Alerts: Alert[] = [
     {
-        id: 1, name: FIVE_DAYS_SINCE_TRIP_ENDED, message: 'Over five days since trip ended and not submitted', level: 1
+        id: 1, name: FIVE_DAYS_SINCE_TRIP_ENDED, message: 'Five days or more since trip ended and not submitted', level: 1
     },
     {
-        id: 2, name: TEN_DAYS_SINCE_TRIP_ENDED, message: 'Over ten days since trip ended and not submitted', level: 2
+        id: 2, name: NINE_DAYS_SINCE_TRIP_ENDED, message: 'Nine days or more since trip ended and not submitted', level: 2
     },
     {
         id: 3, name: X_DAYS_SINCE_SUBMITTED_AND_NOT_SENT, message: 'Three days since submitted and not sent to fiduciary', level: 2
@@ -53,10 +53,10 @@ export function useNotifications(trip: Trip | undefined) {
 
             const days = differenceInDays(today, toDateFollowingDay);
 
-            if (days > 5 && days < 10) {
+            if (days > 5 && days < 9) {
                 alerts.push(Alerts.filter(x => x.name == FIVE_DAYS_SINCE_TRIP_ENDED)[0]);
-            } else if (days >= 10) {
-                alerts.push(Alerts.filter(x => x.name == TEN_DAYS_SINCE_TRIP_ENDED)[0]);
+            } else if (days >= 9) {
+                alerts.push(Alerts.filter(x => x.name == NINE_DAYS_SINCE_TRIP_ENDED)[0]);
             }
         }
 

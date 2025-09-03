@@ -62,7 +62,15 @@ namespace NhacTravelReimbursement.Helpers
 
                 var emailMessage = CreateEmailMessage(message);
 
-                emailMessage.Bcc.Add(new MailboxAddress(_configuration.GetValue<string>("DefaultEmail"), _configuration.GetValue<string>("DefaultEmail")));
+
+                if (ccs is not null)
+                {
+                    emailMessage.Cc.Add(new MailboxAddress(ccs.First(), ccs.First()));
+                }
+
+                emailMessage.Bcc.Add(new MailboxAddress(
+                    _configuration.GetValue<string>("DefaultEmail"),
+                     _configuration.GetValue<string>("DefaultEmail")));
 
                 await Send(emailMessage);
             }

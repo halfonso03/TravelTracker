@@ -24,11 +24,12 @@ builder.Services.AddCors();
 
 builder.Services.AddDbContext<AppDbContext>(opt =>
 {
-    opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+    opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 builder.Services.AddAutoMapper(config => config.AddProfile<MappingProfiles>());
 
-builder.Services.AddTransient<EmailConfiguration>();
+builder.Services.AddTransient<EmailConfiguration>((f) => emailConfig);
+
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.AddTransient<IReportService, ReportService>();
 

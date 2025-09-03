@@ -186,20 +186,7 @@ export default function TripForm({ trip, alerts, clockStart }: Props) {
                   disabled={isDisabled}
                 ></Select>
               </FormRow>
-              {/* <FormRow
-                label="Traveller Name"
-                id="travellerName"
-                error={errors?.travellerName?.message}
-                useMessage={true}
-              >
-                <Input
-                  type="text"
-                  disabled={isDisabled}
-                  id="travellerName"
-                  defaultValue={trip.travellerName}
-                  {...register('travellerName')}
-                ></Input>
-              </FormRow> */}
+
               <div className="my-7"></div>
               <FormRow
                 label="Trip Start Date"
@@ -436,7 +423,7 @@ export default function TripForm({ trip, alerts, clockStart }: Props) {
                   size="medium"
                   type="button"
                   disabled={createTrip.isPending || updateTrip.isPending}
-                  onClick={() => navigate(-1)}
+                  onClick={() => navigate('/trips')}
                 ></Button>
                 <Button
                   variation="primary"
@@ -468,7 +455,7 @@ export default function TripForm({ trip, alerts, clockStart }: Props) {
                   ></Button>
                 </>
               )}
-              {trip.statusId == 2 && (
+              {(trip.statusId == 2 || trip.statusId == 3) && (
                 <Button
                   variation="danger"
                   children="Reopen Trip"

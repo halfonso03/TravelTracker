@@ -290,7 +290,7 @@ export const GlobalStyles = createGlobalStyle`:root {
   */
 
   .react-datepicker {
-  border: 1px solid var(--color-grey-700);
+  border: 1px solid var(--color-grey-800);
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: var(--color-grey-900);
@@ -308,7 +308,6 @@ export const GlobalStyles = createGlobalStyle`:root {
 
 .react-datepicker__header {
   background-color: var(--color-grey-900);
-  border-bottom: 1px solid var(--color-grey-700);
 }
 
 .react-datepicker__day {
@@ -332,7 +331,12 @@ export const GlobalStyles = createGlobalStyle`:root {
   color: white;
 }
 
+
+/* FulLCalendar */
 // remove extra border around calendar events
+.fc-toolbar-title {
+  color:#fff !important
+}
 .fc-h-event {
   border:0;
   background-color: transparent
@@ -342,8 +346,16 @@ export const GlobalStyles = createGlobalStyle`:root {
     border:1px solid var(--color-brand-500) !important;
 }
 
-  `;
+.fc-day-today  {
+  background-color: var(--color-gray-800) !important;
+  border: 2px solid var(--color-gray-600) !important
+}
 
+.fc-day-today > div  {
+  background-color: var(--color-gray-800) !important;
+  border-top: 2px solid var(--color-gray-600) !important
+}
 
+`;
 
 

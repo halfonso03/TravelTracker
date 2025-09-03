@@ -37,7 +37,7 @@ export default function AlertsContainer({ alerts }: Props) {
       {alerts.map((s, index) => (
         <div className="flex" key={index}>
           <div className={`my-2 ${getColor(s.level)} flex gap-2 `}>
-            <div className="self-center">{getIcon(s.level)}</div>
+            <div className="self-start mt-1">{getIcon(s.level)}</div>
             <div className="self-start">{s.message}</div>
           </div>
         </div>

@@ -47,12 +47,14 @@ export default function Reports() {
             </div>
           </Box>
           <Button
-            className="mt-3"
+            className="mt-6"
             onClick={sendReport}
             disabled={isDisabled || isEmailingReport}
             variation="primary"
           >
-            <div className="">Email Report</div>
+            <div className="">
+              {isEmailingReport ? 'Sending Report...' : 'Email Report'}
+            </div>
           </Button>
         </Box>
       </Box>

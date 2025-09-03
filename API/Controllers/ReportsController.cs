@@ -4,38 +4,57 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NhacTravelReimbursement.Helpers;
 using NhacTravelReimbursement.Services;
+using SQLitePCL;
 
 namespace NhacTravelReimbursement.Controllers
 {
 
-    public class ReportsController(IEmailSender emailSender, IReportService reportService) : BaseApiController
+    public class ReportsController(IEmailSender emailSender, IReportService reportService, IConfiguration config) : BaseApiController
     {
 
         [HttpGet("summary")]
         public async Task<IActionResult> GetSummaryReport()
         {
-            byte[] data = System.IO.File.ReadAllBytes("nhac pmp.xlsx");
-            string base64String = Convert.ToBase64String(data);
 
-            await Task.Delay(800);
-            return Ok(new { ByteArray = base64String });
+            var base64String = "";
+
+            try
+            {
+                base64String = await reportService.GetReportAsBase64("/TravelTrackerReports/Reimbursements");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return Ok(new { base64String });
         }
 
         [HttpGet("emailReport")]
         public async Task<IActionResult> EmailReport(string email, string reportPath)
         {
-            var report = await reportService.GetReportAsBase64(reportPath);
-            byte[] byteArray = Convert.FromBase64String(report);
 
-            await emailSender.SendEmail(
-                subject: "Report",
-                body: "",
-                to: email,
-                attachments:
-                [
-                    new Attachment($"Reimbursements.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", byteArray)
-                ]);
+            var base64String = "";
 
+            try
+            {
+                base64String = await reportService.GetReportAsBase64(reportPath);
+                byte[] byteArray = Convert.FromBase64String(base64String);
+
+                await emailSender.SendEmail(
+                    subject: $"Reimbursements Report As of {DateTime.Today: M/d/yy}",
+                    body: "",
+                    to: email,
+                    attachments:
+                    [
+                        new Attachment($"Reimbursements.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", byteArray)
+                    ],
+                    ccs: [config.GetValue<string>("CCDefaultEmail")!.ToString()]);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
 
             return Ok();
         }

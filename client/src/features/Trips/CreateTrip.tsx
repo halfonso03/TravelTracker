@@ -11,6 +11,7 @@ export default function CreateTrip() {
     statusId: 1,
     approvedDate: new Date(),
     fiduciary: 'MCSO',
+    travellerId: 0,
   };
 
   function onTripCreated() {

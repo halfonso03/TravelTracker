@@ -35,7 +35,7 @@ const variations = {
       background-color: var(--color-brand-700);
     };
     &:disabled {
-      opacity: .6;
+      opacity: .8;
     }
   `,
   secondary: css`

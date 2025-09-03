@@ -17,7 +17,7 @@ namespace NhacTravelReimbursement.Controllers
         {
             var travellers = await context.Travellers
                                     .OrderBy(x => x.LastName)
-                                    .ThenBy(x => x.LastName)
+                                    .ThenBy(x => x.FirstName)
                                     .ToListAsync();
 
             var dtos = mapper.Map<List<TravellerDto>>(travellers);

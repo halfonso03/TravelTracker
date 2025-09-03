@@ -1,4 +1,5 @@
 using System;
+using NhacTravelReimbursement.Helpers;
 
 namespace NhacTravelReimbursement.Services;
 
@@ -9,16 +10,26 @@ public interface IReportService
 
 public class ReportService : IReportService
 {
-    public async Task<string> GetReportAsBase64(string path)
+    public async Task<string?> GetReportAsBase64(string path)
     {
-        // make http get to another app to send report, maybe HOTT
-        // have it return the report bytes
+        ReportOutputResponse? reportOutput = default(ReportOutputResponse);
 
-        byte[] data = await System.IO.File.ReadAllBytesAsync("nhac pmp.xlsx");
-        string base64String = Convert.ToBase64String(data);
+        try
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                var response = await client.GetAsync("http://localhost/HOTT/api/traveltracker");
+                reportOutput = await response.Content.ReadFromJsonAsync<ReportOutputResponse>();
+            }
 
-        return base64String;
+        }
+        catch (Exception ex)
+        {
+            //var m = ex.Message;
 
+            throw;
+        }
 
+        return reportOutput != null ? reportOutput.Data : "";
     }
 }

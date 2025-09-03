@@ -45,7 +45,7 @@ export const useTripMutations = () => {
 
     const cancelTrip = useMutation({
         mutationFn: async (id: string) => {
-            await agent.post(`/travel/${id}/close`)
+            await agent.post(`/travel/${id}/cancel`)
             return id;
         },
         onMutate: async (id: string) => {

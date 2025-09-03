@@ -13,8 +13,8 @@ export const useReports = () => {
 
             const response = await agent.get('/reports/summary')
             const data = await response.data;
-            const base64String = data.byteArray;
-            const binaryString = atob(base64String); // Decode Base64
+            const base64String = data.base64String;
+            const binaryString = atob(base64String);
             const byteArray = new Uint8Array(binaryString.length);
             for (let i = 0; i < binaryString.length; i++) {
                 byteArray[i] = binaryString.charCodeAt(i);
@@ -27,7 +27,7 @@ export const useReports = () => {
 
             const aTag = document.createElement('a');
             aTag.href = blobUrl;
-            aTag.download = 'filename.xlsx';
+            aTag.download = 'Reimbursements.xlsx';
             aTag.click();
 
         } catch (error) {
