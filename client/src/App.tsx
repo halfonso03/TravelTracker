@@ -9,7 +9,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 const StyledBody = styled.div``;
 
 const StyledOutlet = styled.div`
-  flex: 8;
+  flex: 9;
   background-color: var(--color-gray-900);
   padding: 3rem 3rem;
   color: var(--color-grey-200);

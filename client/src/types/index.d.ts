@@ -13,6 +13,8 @@ type Trip = {
     reimbursementSentDate?: Date
     reimbursementPaidDate?: Date
     travellerName?: string
+    email?: string
+    numberDaysSinceSubmitted?: number
 }
 
 

@@ -1,4 +1,6 @@
-import { addDays, differenceInDays } from "date-fns";
+import { diffDays } from "@fullcalendar/core/internal.js";
+import { addDays, differenceInCalendarDays, differenceInDays } from "date-fns";
+import { number } from "yup";
 
 
 
@@ -29,13 +31,10 @@ export const Alerts: Alert[] = [
 
 export function useNotifications(trip: Trip | undefined) {
 
-
-
     const getClockStart = () => {
         if (!trip) return null;
         return addDays(new Date(new Date(trip.toDate).setHours(8, 0, 0)), 1);
     }
-
 
     function getNotifications(): Alert[] | null {
 
@@ -82,10 +81,30 @@ export function useNotifications(trip: Trip | undefined) {
         return alerts;
     }
 
+
+
     return { getNotifications, getClockStart }
 }
 
 
+export const useDaysSinceSubmitted = () => {
+
+
+    const getClockStart = (toDate: Date) => {
+        return addDays(new Date(new Date(toDate).setHours(8, 0, 0)), 1);
+    }
+
+
+    function numberDaysSinceSubmitted(toDate: Date) {
+        const today = new Date();
+        const clockStart = getClockStart(toDate);
+
+        return differenceInCalendarDays(today, clockStart);
+
+    }
+
+    return { numberDaysSinceSubmitted };
+}
 
 
 

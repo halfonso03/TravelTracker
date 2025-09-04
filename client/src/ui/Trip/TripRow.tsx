@@ -35,32 +35,38 @@ export default function TripRow({ trip }: Props) {
       <Table.Row>
         <Stacked>
           <span>{trip.travellerName}</span>
-          <span style={{}}>example@test.com</span>
+          <span style={{ textWrap: 'wrap', width: '8rem' }}>{trip.email}</span>
         </Stacked>
-        <Stacked>
+        <Stacked className="self-start">
           <span>{`${formatDate(trip.fromDate)} to ${formatDate(
             trip.toDate
           )}`}</span>
-          <span>
-            {/* {'Ended ' +
-              formatDistance(new Date(), trip.toDate, { addSuffix: false })} */}
-            {t(trip)}
-          </span>
+          <span>{t(trip)}</span>
         </Stacked>
-        <div>{trip.approvedDate && formatDate(trip.approvedDate)}</div>
-        <div className="px-4">{trip.fiduciary}</div>
-        <div>{trip.location}</div>
-        <div>{trip.description}</div>
-        <div>
+        <div className="self-start">
+          {trip.approvedDate && formatDate(trip.approvedDate)}
+        </div>
+        <div className="px-4 self-start">{trip.fiduciary}</div>
+        <div className="self-start">{trip.location}</div>
+        <div className="self-start">{trip.description}</div>
+        <div className="self-start">
           <TripStatus status={trip?.status ? trip.status : ''}>
             {trip.status}
           </TripStatus>
         </div>
-        <div>{trip.submittedDate && formatDate(trip.submittedDate)}</div>
-        <div>
+        <div className="text-center self-start">
+          {trip.numberDaysSinceSubmitted != undefined &&
+            (trip.numberDaysSinceSubmitted > 0
+              ? trip.numberDaysSinceSubmitted
+              : '')}
+        </div>
+        <div className="self-start">
+          {trip.submittedDate && formatDate(trip.submittedDate)}
+        </div>
+        <div className="self-start">
           {trip.reimbursementSentDate && formatDate(trip.reimbursementSentDate)}
         </div>
-        <div>
+        <div className="self-start">
           {trip.reimbursementPaidDate && formatDate(trip.reimbursementPaidDate)}
         </div>
       </Table.Row>
