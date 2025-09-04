@@ -1,6 +1,4 @@
-import { diffDays } from "@fullcalendar/core/internal.js";
 import { addDays, differenceInCalendarDays, differenceInDays } from "date-fns";
-import { number } from "yup";
 
 
 
@@ -43,9 +41,6 @@ export function useNotifications(trip: Trip | undefined) {
 
         const alerts: Alert[] = [];
         const today = new Date().setHours(8, 0, 0);
-
-        console.log(new Date(new Date(trip.toDate).setHours(8, 0, 0)));
-
         const toDateFollowingDay = addDays(new Date(new Date(trip.toDate).setHours(8, 0, 0)), 1);
 
         if (!trip.submittedDate) {
@@ -74,14 +69,10 @@ export function useNotifications(trip: Trip | undefined) {
             if (differenceInDays(submittedDate, toDateFollowingDay) >= 5) {
                 alerts.push(Alerts.filter(x => x.name == OVER_FIVE_DAYS_TO_SUBMIT)[0]);
             }
-
         }
-
 
         return alerts;
     }
-
-
 
     return { getNotifications, getClockStart }
 }
@@ -89,18 +80,15 @@ export function useNotifications(trip: Trip | undefined) {
 
 export const useDaysSinceSubmitted = () => {
 
-
     const getClockStart = (toDate: Date) => {
         return addDays(new Date(new Date(toDate).setHours(8, 0, 0)), 1);
     }
-
 
     function numberDaysSinceSubmitted(toDate: Date) {
         const today = new Date();
         const clockStart = getClockStart(toDate);
 
         return differenceInCalendarDays(today, clockStart);
-
     }
 
     return { numberDaysSinceSubmitted };

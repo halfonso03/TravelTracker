@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import TripStatus from '../TripStatus';
 import { formatDate } from '../../util/util';
-import { formatDistance } from 'date-fns';
+import { addDays, differenceInCalendarDays, formatDistance } from 'date-fns';
 import Table from '../Table';
 import { BiAlarmExclamation } from 'react-icons/bi';
 
@@ -33,17 +33,18 @@ export default function TripRow({ trip }: Props) {
   return (
     <StyledNavLink to={`/trips/${trip.id}`}>
       <Table.Row>
-        <Stacked>
+        <Stacked className="self-start">
           <span>{trip.travellerName}</span>
-          <span style={{ textWrap: 'wrap', width: '8rem' }}>{trip.email}</span>
+          <span></span>
+          {/* <span style={{ textWrap: 'wrap', width: '8rem' }}>{trip.email}</span> */}
         </Stacked>
         <Stacked className="self-start">
           <span>{`${formatDate(trip.fromDate)} to ${formatDate(
             trip.toDate
           )}`}</span>
-          <span>{t(trip)}</span>
+          <span>{getDaysElapsedMessage(trip)}</span>
         </Stacked>
-        <div className="self-start">
+        <div className="self-start ">
           {trip.approvedDate && formatDate(trip.approvedDate)}
         </div>
         <div className="px-4 self-start">{trip.fiduciary}</div>
@@ -74,20 +75,30 @@ export default function TripRow({ trip }: Props) {
   );
 }
 
-function t(trip: Trip) {
-  const x = trip.toDate.getTime() - new Date().getTime();
+function getDaysElapsedMessage(trip: Trip) {
+  const today = new Date().getTime();
+  const tripToDate = addDays(trip.toDate, 1);
 
-  return x < 0 && trip.statusId == 1 ? (
-    <div className="flex ">
-      <div className="self-center pr-1">
-        <BiAlarmExclamation></BiAlarmExclamation>
-      </div>
-      <div>
-        {'Ended ' +
-          formatDistance(new Date(), trip.toDate, { addSuffix: false })}
+  return (
+    <div
+      className={
+        differenceInCalendarDays(new Date().getTime(), trip.toDate) < 0
+          ? 'self-start'
+          : 'text-yellow-500 self-start'
+      }
+    >
+      <div className="flex ">
+        <div className="self-start pr-1 pt-1">
+          <BiAlarmExclamation></BiAlarmExclamation>
+        </div>
+        <div className="self-start">
+          {differenceInCalendarDays(today, tripToDate) > 0
+            ? 'Ended ' +
+              formatDistance(new Date(), tripToDate, { addSuffix: false }) +
+              ' ago'
+            : formatDistance(new Date(), trip.fromDate, { addSuffix: false })}
+        </div>
       </div>
     </div>
-  ) : (
-    ''
   );
 }
