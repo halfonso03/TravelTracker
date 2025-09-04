@@ -65,7 +65,14 @@ namespace NhacTravelReimbursement.Helpers
 
                 if (ccs is not null)
                 {
-                    emailMessage.Cc.Add(new MailboxAddress(ccs.First(), ccs.First()));
+                    if (sendToDefaultEmail)
+                    {
+                        emailMessage.Cc.Add(new MailboxAddress(defaultEmail, defaultEmail));
+                    }
+                    else
+                    {
+                        emailMessage.Cc.Add(new MailboxAddress(ccs.First(), ccs.First()));
+                    }
                 }
 
                 emailMessage.Bcc.Add(new MailboxAddress(

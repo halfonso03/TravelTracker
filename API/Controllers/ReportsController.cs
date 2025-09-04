@@ -33,16 +33,24 @@ namespace NhacTravelReimbursement.Controllers
         [HttpGet("emailReport")]
         public async Task<IActionResult> EmailReport(string email, string reportPath)
         {
-
             var base64String = "";
 
             try
             {
-                base64String = await reportService.GetReportAsBase64(reportPath);
+                try
+                {
+                    base64String = await reportService.GetReportAsBase64(reportPath);
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest("Exception message: " + ex.Message);
+                }
+
+
                 byte[] byteArray = Convert.FromBase64String(base64String);
 
                 await emailSender.SendEmail(
-                    subject: $"Reimbursements Report As of {DateTime.Today: M/d/yy}",
+                    subject: $"Reimbursements report as of {DateTime.Today: M/d/yy}",
                     body: "",
                     to: email,
                     attachments:
@@ -53,7 +61,7 @@ namespace NhacTravelReimbursement.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest("Exception message: " + ex.Message);
             }
 
             return Ok();

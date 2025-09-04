@@ -13,7 +13,7 @@ export default function Reports() {
   const [isDisabled, setIsDisabled] = useState(false);
 
   async function sendReport() {
-    await emailReport(email, '/path_to_report');
+    await emailReport(email, '/TravelTrackerReports/Reimbursements');
   }
 
   function emailChange(e: ChangeEvent<HTMLInputElement>) {

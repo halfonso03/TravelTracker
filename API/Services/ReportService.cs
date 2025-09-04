@@ -8,7 +8,7 @@ public interface IReportService
     Task<string> GetReportAsBase64(string path);
 }
 
-public class ReportService : IReportService
+public class ReportService(IConfiguration configuration) : IReportService
 {
     public async Task<string?> GetReportAsBase64(string path)
     {
@@ -18,10 +18,9 @@ public class ReportService : IReportService
         {
             using (HttpClient client = new HttpClient())
             {
-                var response = await client.GetAsync("http://localhost/HOTT/api/traveltracker");
+                var response = await client.GetAsync(configuration.GetValue<string>("ReportUrl"));
                 reportOutput = await response.Content.ReadFromJsonAsync<ReportOutputResponse>();
             }
-
         }
         catch (Exception ex)
         {

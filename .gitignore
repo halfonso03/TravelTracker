@@ -11,6 +11,8 @@ server.txt
 # dotenv files
 .env
 
+appsettings.Development.json
+
 # User-specific files
 *.rsuser
 *.suo
