@@ -75,10 +75,26 @@ export default function TripRow({ trip }: Props) {
   );
 }
 
-function getDaysElapsedMessage(trip: Trip) {
+function getMessage(trip: Trip) {
   const today = new Date().getTime();
   const tripToDate = addDays(trip.toDate, 1);
 
+  if (differenceInCalendarDays(today, tripToDate) > 0) {
+    return (
+      'Ended ' +
+      formatDistance(new Date(), tripToDate, { addSuffix: false }) +
+      ' ago'
+    );
+  } else {
+    if (trip.fromDate.getTime() < today && trip.toDate.getTime() > today) {
+      return 'In progress';
+    } else {
+      return formatDistance(new Date(), trip.fromDate, { addSuffix: false });
+    }
+  }
+}
+
+function getDaysElapsedMessage(trip: Trip) {
   return (
     <div
       className={
@@ -91,13 +107,7 @@ function getDaysElapsedMessage(trip: Trip) {
         <div className="self-start pr-1 pt-1">
           <BiAlarmExclamation></BiAlarmExclamation>
         </div>
-        <div className="self-start">
-          {differenceInCalendarDays(today, tripToDate) > 0
-            ? 'Ended ' +
-              formatDistance(new Date(), tripToDate, { addSuffix: false }) +
-              ' ago'
-            : formatDistance(new Date(), trip.fromDate, { addSuffix: false })}
-        </div>
+        <div className="self-start">{getMessage(trip)}</div>
       </div>
     </div>
   );
